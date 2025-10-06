@@ -1,0 +1,45 @@
+@baseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwid2hhdHNhcHAiOiIxMzk5MTQwMjUxMSIsImlhdCI6MTc0ODcyMDQ2NiwiZXhwIjoxNzQ5MzI1MjY2fQ.qLMCkP3y2iffeMdpvHO0MCJo4rKdVLwdUyGqX4JWfX0
+### Criar categoria
+POST {{baseUrl}}/complement/create
+Content-Type: application/json
+
+{
+  "title": "Bacon Triturado",
+  "description": "Bacon extra",
+  "price": 2.00,
+  "max_quantity": null,
+  "image": "image",
+  "fk_complement_group_id": 2
+}
+### Buscar todas categoria
+GET {{baseUrl}}/complement/all
+Content-Type: application/json
+
+{
+  "fk_complement_group_id": 2
+}
+### Buscar categoria por ID
+GET {{baseUrl}}/complement/id
+Content-Type: application/json
+
+{
+  "id": 1
+}
+### Atualizar um categoria
+PUT {{baseUrl}}/complement/update
+Content-Type: application/json
+
+{
+  "id": 1,
+  "data": {
+    "title": "Bacon Triturado"
+  }
+}
+### Deletar categoria
+DELETE  {{baseUrl}}/complement/delete
+Content-Type: application/json
+
+{
+  "id": 1
+}

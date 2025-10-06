@@ -1,0 +1,46 @@
+@baseUrl = http://localhost:3000/api
+### Criar produto
+POST {{baseUrl}}/product/create
+Content-Type: application/json
+
+{
+  "title": "Nabih Esfiha Carne",
+  "description": "Carne suculenta envolta em tomates fresco picados, com cebolas que trazem um toque adocicado e saboroso e o tempero especial da Nabih Esfihas. Uma explosão de sabor!",
+  "price": 3.99,
+  "image": "https://firebasestorage.googleapis.com/v0/b/brendi-app.appspot.com/o/public%2Fstores%2FiDKFcEEXl3yffAobBax8%2Fimages%2Fproducts%2FZHrXENTVDECnIgyuMraE.png?alt=media&token=60fab67e-c5a1-4095-8c61-fad75ea87c73",
+  "servings": 1,
+  "weight_grams": 85,
+  "fk_store_categories_id": 1,
+  "fk_store_id": 1
+}
+### Buscar todos produtos
+GET {{baseUrl}}/product/all
+Content-Type: application/json
+
+{
+  "fk_store_id": 1
+}
+### Buscar produto por ID
+GET {{baseUrl}}/product/id
+Content-Type: application/json
+
+{
+  "id": 1
+}
+### Atualizar um produto
+PUT {{baseUrl}}/product/update
+Content-Type: application/json
+
+{
+  "id": 4,
+  "data": {
+    "servings": 2
+  }
+}
+### Deletar produto
+DELETE  {{baseUrl}}/product/delete
+Content-Type: application/json
+
+{
+  "id": 3
+}

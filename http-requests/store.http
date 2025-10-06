@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb2FvanBtb3JlaXJhMjZAZ21haWwuY29tLmJyIiwiaWF0IjoxNzQ5NTI1NTU1LCJleHAiOjE3NTIxMTc1NTV9.0wOFXf8sfEwnQLzDm0cCQ2aXTXfTaoyJywvDbPF3vhc
+### Criar usuário
+POST {{baseUrl}}/store/create
+Content-Type: application/json
+
+{
+  "name": "aNabih Esfiha'ss",
+  "email": "babaca@sdasdasd.com",
+  "password": "pingu2004"
+}
+### Cadastrar loja
+POST {{baseUrl}}/store/login
+Content-Type: application/json
+
+{
+  "email": "joaojpmoreira26@gmail.com.br",
+  "password": "senha123"
+}
+### Buscar loja por ID
+GET {{baseUrl}}/store/1
+### Buscar token
+GET {{baseUrl}}/store/token/2
+### Atualizar um loja
+PUT {{baseUrl}}/store/update/1
+Content-Type: application/json
+
+{
+  "data": {
+    "mercadopago_access_token": "TEST-3453465143454768-450435-034535dbfb0a405344d6ab8bd4ce9e97-1234565339"
+  }
+}

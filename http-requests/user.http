@@ -1,0 +1,45 @@
+@baseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwid2hhdHNhcHAiOiIxMzk5MTQwMjUxMSIsImlhdCI6MTc0ODcyMDQ2NiwiZXhwIjoxNzQ5MzI1MjY2fQ.qLMCkP3y2iffeMdpvHO0MCJo4rKdVLwdUyGqX4JWfX0
+### Criar usuário
+POST {{baseUrl}}/user/code
+Content-Type: application/json
+
+{
+  "name": "Ashley Amor da Minha Vida",
+  "whatsapp": "13991402511",
+  "fk_store_id": 1
+}
+### Login de usuário
+POST {{baseUrl}}/user/verify
+Content-Type: application/json
+
+{
+  "code": "471067",
+  "whatsapp": "13991402511",
+  "fk_store_id": 1
+}
+### Buscar todos usuários
+GET {{baseUrl}}/user/all
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "fk_store_id": 1
+}
+### Buscar usuário por ID
+GET {{baseUrl}}/user/id
+Content-Type: application/json
+
+{
+  "id": 2
+}
+### Atualizar um usuário
+PUT {{baseUrl}}/user/update
+Content-Type: application/json
+
+{
+  "id": 2,
+  "data": {
+    "customer_id": "123112giu3g21iug312321u"
+  }
+}

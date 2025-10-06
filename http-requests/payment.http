@@ -1,0 +1,54 @@
+@baseUrl = http://localhost:3000/api
+
+### Pagar no Crédito
+POST {{baseUrl}}/payment/credit
+Content-Type: application/json
+
+{
+  "token": "71eda1f7383f8f15f519f1ce8ebe7d21",
+  "transaction_amount": 30.8,
+  "cpf": "49827089838",
+  "email": "joaojpmoreira25@gmail.com",
+  "payment_method_id": "master",
+  "phone_number": "13991027026"
+}
+### Pagar no PIX
+POST {{baseUrl}}/payment/pix
+Content-Type: application/json
+
+{
+  "value": 30.8,
+  "phone_number": "13991027026"
+}
+### Status do Pagamento
+POST {{baseUrl}}/payment/status
+Content-Type: application/json
+
+{
+  "payment_id": "71eda1f7383f8f15f519f1ce8ebe7d21",
+}
+### Criar ID de Cliente MercadoPago
+POST {{baseUrl}}/customer/create
+Content-Type: application/json
+
+{
+  "user_id": 1,
+  "email": "tester7@gmail.com",
+  "cpf": "49827089815",
+  "first_name": "Test",
+  "last_name": "Test",
+  "area_code": "13",
+  "phone": "991027026",
+  "id_address": "1",
+  "cep": "11730000",
+  "street": "Avenida Tatu",
+  "number": "777"
+}
+### Criar ID do Cartão para compras futuras
+POST {{baseUrl}}/card/add
+Content-Type: application/json
+
+{
+  "token": "71eda1f7383f8f15f519f1ce8ebe7d21",
+  "customer_id": "123456789-jxOV430go9fx2e"
+}

@@ -1,0 +1,43 @@
+@baseUrl = http://localhost:3000/api
+### Criar bairro
+POST {{baseUrl}}/deliveryarea/create
+Content-Type: application/json
+
+{
+  "name": "Centro",
+  "delivery_fee": 4.50,
+  "delivery_time_min": 60,
+  "delivery_time_max": 90,
+  "fk_store_cities_id": 1
+}
+### Buscar todos bairros
+GET {{baseUrl}}/deliveryarea/all
+Content-Type: application/json
+
+{
+  "fk_store_cities_id": 1
+}
+### Buscar bairro por ID
+GET {{baseUrl}}/deliveryarea/id
+Content-Type: application/json
+
+{
+  "id": 2
+}
+### Atualizar um bairro
+PUT {{baseUrl}}/deliveryarea/update
+Content-Type: application/json
+
+{
+  "id": 1,
+  "data": {
+    "name": "Praia da Barra"
+  }
+}
+### Deletar bairro
+DELETE  {{baseUrl}}/deliveryarea/delete
+Content-Type: application/json
+
+{
+  "id": 2
+}

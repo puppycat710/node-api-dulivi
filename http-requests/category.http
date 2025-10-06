@@ -1,0 +1,41 @@
+@baseUrl = http://localhost:3000/api
+### Criar categoria
+POST {{baseUrl}}/category/create
+Content-Type: application/json
+
+{
+  "title": "Nabih Esfiha's Salgadas",
+  "image": "https://firebasestorage.googleapis.com/v0/b/brendi-app.appspot.com/o/public%2Fstores%2FiDKFcEEXl3yffAobBax8%2Fimages%2Fproducts%2FZHrXENTVDECnIgyuMraE.png?alt=media&token=60fab67e-c5a1-4095-8c61-fad75ea87c73",
+  "fk_store_id": 1
+}
+### Buscar todas categoria
+GET {{baseUrl}}/category/all
+Content-Type: application/json
+
+{
+  "fk_store_id": 1
+}
+### Buscar categoria por ID
+GET {{baseUrl}}/category/id
+Content-Type: application/json
+
+{
+  "id": 4
+}
+### Atualizar um categoria
+PUT {{baseUrl}}/category/update
+Content-Type: application/json
+
+{
+  "id": 4,
+  "data": {
+    "title": "Nabih Esfiha's Doces"
+  }
+}
+### Deletar categoria
+DELETE  {{baseUrl}}/category/delete
+Content-Type: application/json
+
+{
+  "id": 3
+}

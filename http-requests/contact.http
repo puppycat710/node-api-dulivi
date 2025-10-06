@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb2FvanBtb3JlaXJhMjVAZ21haWwuY29tIiwiaWF0IjoxNzU4NjMzMDY3LCJleHAiOjE3NjEyMjUwNjd9.6cuNBIVamW2GaHJ21WvVmRY8VjZJy0pJtJIuHEQkhQk
+### Criar registro
+POST {{baseUrl}}/contact/create
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Ashley",
+  "contact": "13992096245",
+  "fk_store_id": 1
+}
+### Buscar todos registros
+GET {{baseUrl}}/contact/all?fk_store_id=1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+### Buscar por ID
+GET {{baseUrl}}/contact?id=2
+Content-Type: application/json
+Authorization: Bearer {{token}}
+### Atualizar registro
+PUT {{baseUrl}}/contact/update/1
+Content-Type: application/json
+
+{
+  "data": {
+    "name": "JP"
+  }
+}
+### Deletar registro
+DELETE  {{baseUrl}}/contact/delete/1
+Content-Type: application/json

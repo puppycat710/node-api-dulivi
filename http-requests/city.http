@@ -1,0 +1,40 @@
+@baseUrl = http://localhost:3000/api
+### Criar categoria
+POST {{baseUrl}}/city/create
+Content-Type: application/json
+
+{
+  "name": "Mongaguá",
+  "fk_store_id": 1
+}
+### Buscar todas categoria
+GET {{baseUrl}}/city/all
+Content-Type: application/json
+
+{
+  "fk_store_id": 1
+}
+### Buscar categoria por ID
+GET {{baseUrl}}/city/id
+Content-Type: application/json
+
+{
+  "id": 1
+}
+### Atualizar um cidade
+PUT {{baseUrl}}/city/update
+Content-Type: application/json
+
+{
+  "id": 1,
+  "data": {
+    "name": "Peruíbe"
+  }
+}
+### Deletar categoria
+DELETE  {{baseUrl}}/city/delete
+Content-Type: application/json
+
+{
+  "id": 3
+}

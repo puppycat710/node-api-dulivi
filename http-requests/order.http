@@ -1,0 +1,70 @@
+@baseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwid2hhdHNhcHAiOiIxMzk5MTQwMjUxMSIsImlhdCI6MTc0ODcyMDQ2NiwiZXhwIjoxNzQ5MzI1MjY2fQ.qLMCkP3y2iffeMdpvHO0MCJo4rKdVLwdUyGqX4JWfX0
+### Criar pedido
+POST {{baseUrl}}/order/create
+Content-Type: application/json
+
+{
+  "total_amount": 10.97,
+  "delivery_method": "no_local",
+  "is_scheduled": "false",
+  "scheduled_for": "2025-06-02 00:00:00",
+  "delivery_address": "Av. Malibu, 700 - Vila Guilhermina, Mongaguá - SP. (Próximo ao Supermercado Pão de Açucar)",
+  "payment_method": "pix",
+  "customer_name": "João",
+  "customer_whatsapp": "13991027026",
+  "paid": "false",
+  "status": "recebido",
+  "mercadopago_pay_id": "9436adsvbc98236438pop4oi6598oper988",
+  "created_at": "2025-06-02 00:00:00",
+  "fk_delivery_address_id": null,
+  "fk_user_id": null,
+  "fk_store_id": 1,
+  "items": [
+    {
+      "quantity": 2,
+      "price_unit": 3.99,
+      "fk_product_id": 2,
+      "complements": [
+        {
+          "fk_complement_id": 1,
+          "quantity": 1
+        },
+        {
+          "fk_complement_id": 2,
+          "quantity": 2
+        }
+      ]
+    },
+    {
+      "quantity": 1,
+      "price_unit": 2.99,
+      "fk_product_id": 1,
+      "complements": []
+    }
+  ]
+}
+### Buscar todos pedido
+GET {{baseUrl}}/order/all?fk_store_id=1
+Content-Type: application/json
+### Buscar pedido por ID
+GET {{baseUrl}}/order/?id=31
+Content-Type: application/json
+### Atualizar um pedido
+PUT {{baseUrl}}/order/update
+Content-Type: application/json
+
+{
+  "id": 2,
+  "data": {
+    "paid": true,
+    "status": "confirmado"
+  }
+}
+### Deletar pedido
+DELETE  {{baseUrl}}/order/delete
+Content-Type: application/json
+
+{
+  "id": 2
+}

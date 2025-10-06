@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb2FvanBtb3JlaXJhMjVAZ21haWwuY29tIiwiaWF0IjoxNzU4NjMzMDY3LCJleHAiOjE3NjEyMjUwNjd9.6cuNBIVamW2GaHJ21WvVmRY8VjZJy0pJtJIuHEQkhQk
+### Criar registro
+POST {{baseUrl}}/message/create
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "text": "Olá!",
+  "image": null,
+  "send_at": "2025-10-06 17:50:00",
+  "frequency": "weekdays",
+  "fk_group_id": 4,
+  "fk_store_id": 2
+}
+### Buscar todos registros
+GET {{baseUrl}}/message/all?fk_store_id=1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+### Buscar por ID
+GET {{baseUrl}}/message?id=7
+Content-Type: application/json
+Authorization: Bearer {{token}}
+### Atualizar registro
+PUT {{baseUrl}}/message/update/1
+Content-Type: application/json
+
+{
+  "data": {
+    "text": "Promoção Esfihas a partir de R$ 2,50"
+  }
+}
+### Deletar registro
+DELETE  {{baseUrl}}/message/delete/2
+Content-Type: application/json

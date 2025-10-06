@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS delivery_address (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  delivery_address TEXT NOT NULL,
+  fk_user_id INTEGER NOT NULL,
+  FOREIGN KEY (fk_user_id) REFERENCES users(id) ON DELETE CASCADE
+);

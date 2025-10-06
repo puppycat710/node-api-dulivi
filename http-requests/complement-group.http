@@ -1,0 +1,45 @@
+@baseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwid2hhdHNhcHAiOiIxMzk5MTQwMjUxMSIsImlhdCI6MTc0ODcyMDQ2NiwiZXhwIjoxNzQ5MzI1MjY2fQ.qLMCkP3y2iffeMdpvHO0MCJo4rKdVLwdUyGqX4JWfX0
+### Criar categoria
+POST {{baseUrl}}/complement-group/create
+Content-Type: application/json
+
+{
+  "title": "Complemento 1",
+  "option_limit": null,
+  "multiple_selection": "true",
+  "allow_quantity_per_item": "false",
+  "required": "false",
+  "fk_store_id": 1
+}
+### Buscar todas categoria
+GET {{baseUrl}}/complement-group/all
+Content-Type: application/json
+
+{
+  "fk_store_id": 1
+}
+### Buscar categoria por ID
+GET {{baseUrl}}/complement-group/id
+Content-Type: application/json
+
+{
+  "id": 1
+}
+### Atualizar um categoria
+PUT {{baseUrl}}/complement-group/update
+Content-Type: application/json
+
+{
+  "id": 1,
+  "data": {
+    "title": "Complementos"
+  }
+}
+### Deletar categoria
+DELETE  {{baseUrl}}/complement-group/delete
+Content-Type: application/json
+
+{
+  "id": 1
+}

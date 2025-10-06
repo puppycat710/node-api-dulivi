@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS user_cashbacks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fk_user_id INTEGER NOT NULL,
+    fk_store_id INTEGER NOT NULL,
+    fk_order_id INTEGER NOT NULL,
+    amount NUMERIC NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (fk_store_id) REFERENCES stores (id) ON DELETE CASCADE,
+    FOREIGN KEY (fk_order_id) REFERENCES orders (id) ON DELETE CASCADE
+);
