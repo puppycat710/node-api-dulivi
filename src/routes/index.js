@@ -23,11 +23,12 @@ import ibgeRoutes from './ibge.routes.js'
 // Upload Image
 import { multerMiddleware, uploadImage } from '../utils/uploadImage.js'
 import { JWT_SECRET } from '../config/env.js'
+import processScheduledMessages from '../jobs/scheduler.js'
 
 const router = express.Router()
 
 router.post('/api/upload', multerMiddleware, uploadImage)
-router.get('/process-scheduled-messages', async (req, res) => {
+router.get('/api/process-scheduled-messages', async (req, res) => {
 	try {
 		// Valida um token secreto simples
 		const secret = req.query.token

@@ -4,7 +4,7 @@ import parseDateTime from '../utils/parseDateTime.js'
 import sendMessageToGroup from '../utils/sendMessageToGroup.js'
 import isTimeToSend from '../utils/isTimeToSend.js'
 
-async function processScheduledMessages() {
+export default async function processScheduledMessages() {
 	try {
 		const messages = await messageRepository.getScheduledMessages()
 		if (!messages || messages.length === 0) return
