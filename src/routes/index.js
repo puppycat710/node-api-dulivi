@@ -28,6 +28,7 @@ import processScheduledMessages from '../jobs/scheduler.js'
 const router = express.Router()
 
 router.post('/api/upload', multerMiddleware, uploadImage)
+// cron.job ping 
 router.get('/api/process-scheduled-messages', async (req, res) => {
 	try {
 		// Valida um token secreto simples
