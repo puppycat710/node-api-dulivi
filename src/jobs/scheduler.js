@@ -15,8 +15,7 @@ export default async function processScheduledMessages() {
 		for (const msg of messages) {
 			const scheduledDate = parseDateTime(msg.send_at)
 			const frequency = msg.frequency
-			console.log(`🕐 Horário atual do servidor: ${now.toISOString()}`)
-			console.log('🕓 Agendado para:', scheduledDate.toISOString())
+
 			if (frequency === 'weekdays' && (currentDay === 0 || currentDay === 6)) continue
 
 			if (isTimeToSend(scheduledDate, now)) {
