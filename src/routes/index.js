@@ -22,10 +22,26 @@ import messageRoutes from './message.routes.js'
 import ibgeRoutes from './ibge.routes.js'
 // Upload Image
 import { multerMiddleware, uploadImage } from '../utils/uploadImage.js'
+import { JWT_SECRET } from '../config/env.js'
 
 const router = express.Router()
 
 router.post('/api/upload', multerMiddleware, uploadImage)
+router.get('/process-scheduled-messages', async (req, res) => {
+	try {
+		// Valida um token secreto simples
+		const secret = req.query.token
+		if (secret !== JWT_SECRET) {
+			return res.status(403).json({ error: 'Acesso negado' })
+		}
+
+		await processScheduledMessages()
+		res.json({ success: true, message: 'Mensagens processadas com sucesso' })
+	} catch (error) {
+		console.error('Erro ao processar disparos:', error)
+		res.status(500).json({ error: 'Erro interno ao processar mensagens' })
+	}
+})
 // Store
 router.use(storeRoutes)
 router.use(openingHoursRoutes)

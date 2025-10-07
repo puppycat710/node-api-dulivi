@@ -14,7 +14,7 @@ Authorization: Bearer {{token}}
   "fk_store_id": 2
 }
 ### Buscar todos registros
-GET {{baseUrl}}/message/all?fk_store_id=1
+GET {{baseUrl}}/message/all?fk_store_id=2
 Content-Type: application/json
 Authorization: Bearer {{token}}
 ### Buscar por ID
