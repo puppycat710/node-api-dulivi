@@ -11,15 +11,14 @@ export default async function processScheduledMessages() {
 
 		const now = new Date()
 		const currentDay = now.getDay() // 0 = domingo, 6 = sábado
-		console.log('DIA ATUAL:', currentDay)
+
 		for (const msg of messages) {
 			const scheduledDate = parseDateTime(msg.send_at)
 			const frequency = msg.frequency
-			console.log('>>>AGENDADO: ', scheduledDate, '>>>SERVIDOR: ', now)
+			//console.log('>>>AGENDADO: ', scheduledDate, '>>>SERVIDOR: ', now)
 			if (frequency === 'weekdays' && (currentDay === 0 || currentDay === 6)) continue
 
 			if (isTimeToSend(scheduledDate, now)) {
-				console.log('VAI DISPARAAAAAAAR')
 				await sendMessageToGroup(msg)
 			}
 		}

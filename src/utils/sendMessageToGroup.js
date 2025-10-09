@@ -8,11 +8,12 @@ export default async function sendMessageToGroup(msg) {
 
 	for (const contact of contacts) {
 		try {
-			await api.post('/send', {
+			const res = await api.post('/send', {
 				number: contact.contact,
 				message: msg.text,
 			})
 			logMessage(msg, contact)
+			console.log(res.message)
 		} catch (err) {
 			console.warn(`⚠️ Erro ao enviar para ${contact.contact}:`, err.message)
 		}
