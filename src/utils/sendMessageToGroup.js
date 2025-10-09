@@ -6,7 +6,7 @@ import logMessage from './logMessage.js'
 export default async function sendMessageToGroup(msg) {
 	console.log('>>>>>>>>>1')
 	const contacts = await contactGroupRepository.getContactsByGroupId(msg.fk_group_id)
-	console.log(contacts.message)
+	console.log(contacts)
 	for (const contact of contacts) {
 		try {
 			console.log('>>>>>>>>>2')
@@ -16,7 +16,7 @@ export default async function sendMessageToGroup(msg) {
 			})
 			console.log('>>>>>>>>>3')
 			logMessage(msg, contact)
-			console.log(res.message)
+			console.log(res)
 		} catch (err) {
 			console.warn(`⚠️ Erro ao enviar para ${contact.contact}:`, err.message)
 		}
