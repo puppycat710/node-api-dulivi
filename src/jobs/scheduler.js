@@ -17,8 +17,9 @@ export default async function processScheduledMessages() {
 			const frequency = msg.frequency
 			console.log('>>>AGENDADO: ', scheduledDate, '>>>SERVIDOR: ', now)
 			if (frequency === 'weekdays' && (currentDay === 0 || currentDay === 6)) continue
-
+			
 			if (isTimeToSend(scheduledDate, now)) {
+				console.log('VAI DISPARAAAAAAAR')
 				await sendMessageToGroup(msg)
 			}
 		}
