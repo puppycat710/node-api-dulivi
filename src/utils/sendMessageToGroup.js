@@ -6,7 +6,7 @@ import logMessage from './logMessage.js'
 export default async function sendMessageToGroup(msg) {
 	console.log('>>>>>>>>>1')
 	const contacts = await contactGroupRepository.getContactsByGroupId(msg.fk_group_id)
-
+	console.log(contacts.message)
 	for (const contact of contacts) {
 		try {
 			console.log('>>>>>>>>>2')
