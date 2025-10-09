@@ -21,5 +21,5 @@ CREATE TABLE IF NOT EXISTS orders (
     FOREIGN KEY (fk_store_delivery_areas_id) REFERENCES store_delivery_areas (id) ON DELETE SET NULL,
     FOREIGN KEY (fk_delivery_address_id) REFERENCES delivery_address (id) ON DELETE SET NULL,
     FOREIGN KEY (fk_store_id) REFERENCES stores (id) ON DELETE CASCADE,
-    FOREIGN KEY (fk_user_id) REFERENCES users (id) ON DELETE SET NULL
+    FOREIGN KEY (fk_user_id) REFERENCES users (id) ON DELETE CASCADE
 );

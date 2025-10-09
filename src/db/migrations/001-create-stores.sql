@@ -10,7 +10,11 @@ CREATE TABLE IF NOT EXISTS stores (
     delivery_time_min INTEGER,
     delivery_time_max INTEGER,
     store_location TEXT NOT NULL,
+    is_closed INTEGER DEFAULT 0 CHECK (is_closed IN (0, 1)),
+    open_time TEXT DEFAULT '18:00:00',
+    close_time TEXT DEFAULT '22:00:00',
     subscription_expires_at DATETIME,
     mercadopago_access_token TEXT,
-    subscription_status TEXT DEFAULT 'inactive'
+    subscription_status TEXT DEFAULT 'inactive',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );

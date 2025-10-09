@@ -7,6 +7,6 @@ CREATE TABLE IF NOT EXISTS users (
     card_id TEXT,
     customer_id TEXT,
     fk_store_id INTEGER NOT NULL,
-    FOREIGN KEY (fk_store_id) REFERENCES stores (id) ON DELETE CASCADE,
-    UNIQUE (whatsapp, fk_store_id)
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_store_id) REFERENCES stores (id) ON DELETE CASCADE
 );
