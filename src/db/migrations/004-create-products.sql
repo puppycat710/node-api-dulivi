@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS products (
   image TEXT,
   servings INTEGER,
   weight_grams INTEGER,
+  slug TEXT UNIQUE,
   fk_store_categories_id INTEGER NOT NULL,
   fk_store_id INTEGER NOT NULL,
   FOREIGN KEY (fk_store_categories_id) REFERENCES store_categories(id) ON DELETE CASCADE,

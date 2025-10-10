@@ -6,9 +6,18 @@ class ProductRepository {
 	// Criar produto
 	async create(productData) {
 		try {
+			// Gera o slug automaticamente
+			const slug = productData.title
+				.toLowerCase()
+				.trim()
+				.replace(/\s+/g, '-') // espaços → hífens
+				.replace(/[^a-z0-9\-!]/g, '') // remove caracteres especiais, exceto hífen e exclamação (ajuste se quiser)
+
 			const result = await turso.execute(
-				`INSERT INTO products (title, description, price, image, servings, weight_grams, fk_store_categories_id, fk_store_id)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING *`,
+				`INSERT INTO products 
+					(title, description, price, image, servings, weight_grams, fk_store_categories_id, fk_store_id, slug)
+				 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) 
+				 RETURNING *`,
 				[
 					productData.title,
 					productData.description,
@@ -18,8 +27,10 @@ class ProductRepository {
 					productData.weight_grams ?? null,
 					productData.fk_store_categories_id,
 					productData.fk_store_id,
+					slug,
 				]
 			)
+
 			return result.rows[0]
 		} catch (error) {
 			throw error
