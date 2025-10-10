@@ -7,7 +7,7 @@ const router = express.Router()
 router.post('/api/store/create', storeController.create)
 router.post('/api/store/login', storeController.login)
 router.get('/api/store/:id', storeController.getById)
-router.get('/api/store/:slug', storeController.getBySlug)
+router.get('/api/store/slug/:slug', storeController.getBySlug)
 router.put('/api/store/update/:id', authToken, storeController.update)
 
 export default router
