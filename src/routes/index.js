@@ -2,6 +2,7 @@ import express from 'express'
 // Store
 import storeRoutes from './store.routes.js'
 import openingHoursRoutes from './openingHour.routes.js'
+import storeDayRoutes from './storeDay.routes.js'
 import cityRoutes from './city.routes.js'
 import deliveryAreaRoutes from './deliveryArea.routes.js'
 import categoryRoutes from './category.routes.js'
@@ -47,6 +48,7 @@ router.get('/api/process-scheduled-messages', async (req, res) => {
 // Store
 router.use(storeRoutes)
 router.use(openingHoursRoutes)
+router.use(storeDayRoutes)
 router.use(cityRoutes)
 router.use(deliveryAreaRoutes)
 router.use(categoryRoutes)
