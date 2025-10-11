@@ -19,6 +19,24 @@ class StoryDayRepository {
 			throw error
 		}
 	}
+	// Upsert
+	async upsert(fk_store_id, storeDayData) {
+		const { weekday, is_open } = storeDayData
+		try {
+			const result = await turso.execute(
+				`INSERT INTO store_days (weekday, is_open, fk_store_id)
+         VALUES (?, ?, ?)
+         ON CONFLICT(weekday, fk_store_id)
+         DO UPDATE SET is_open = excluded.is_open
+         RETURNING *;`,
+				[weekday, is_open, fk_store_id]
+			)
+			return result.rows?.[0] ?? null
+		} catch (error) {
+			console.error('Erro ao realizar upsert:', error)
+			throw error
+		}
+	}
 	// Encontrar todas categorias
 	async getAll(fk_store_id) {
 		try {

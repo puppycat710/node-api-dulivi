@@ -23,9 +23,28 @@ class StoryDayController {
 			res.status(500).json({
 				success: false,
 				message: 'Erro ao criar registro',
-				error:
-					process.env.NODE_ENV === 'development' ? error : undefined,
+				error: process.env.NODE_ENV === 'development' ? error : undefined,
 			})
+		}
+	}
+	// Upsert
+	async upsert(req, res) {
+		const { data, fk_store_id } = req.body
+
+		try {
+			await storeDaysRepository.upsert(fk_store_id, data)
+
+			const hours = await storeDaysRepository.getById(fk_store_id)
+			//Retorno da API
+			res.status(200).json({
+				success: true,
+				message: 'Registro criado com sucesso',
+				data: hours,
+			})
+			//Tratamento de erros
+		} catch (error) {
+			console.error('Erro ao criar registro: ', error)
+			res.status(500).json({ success: false, error: 'Erro ao criar registro' })
 		}
 	}
 	// Buscar registros
@@ -53,8 +72,7 @@ class StoryDayController {
 			res.status(500).json({
 				success: false,
 				message: 'Erro ao buscar registros',
-				error:
-					process.env.NODE_ENV === 'development' ? error : undefined,
+				error: process.env.NODE_ENV === 'development' ? error : undefined,
 			})
 		}
 	}
@@ -83,8 +101,7 @@ class StoryDayController {
 			res.status(500).json({
 				success: false,
 				message: 'Erro ao buscar registro',
-				error:
-					process.env.NODE_ENV === 'development' ? error : undefined,
+				error: process.env.NODE_ENV === 'development' ? error : undefined,
 			})
 		}
 	}
@@ -95,9 +112,7 @@ class StoryDayController {
 		// Verifica se o registro existe
 		const existingStoreDay = await storeDaysRepository.getById(id)
 		if (!existingStoreDay) {
-			return res
-				.status(404)
-				.json({ success: false, error: 'Registro não encontrado' })
+			return res.status(404).json({ success: false, error: 'Registro não encontrado' })
 		}
 
 		try {
@@ -114,8 +129,7 @@ class StoryDayController {
 			res.status(500).json({
 				success: false,
 				message: 'Erro ao atualizar registro',
-				error:
-					process.env.NODE_ENV === 'development' ? error : undefined,
+				error: process.env.NODE_ENV === 'development' ? error : undefined,
 			})
 		}
 	}
@@ -125,9 +139,7 @@ class StoryDayController {
 		// Verifica se o registro existe
 		const existingStoreDay = await storeDaysRepository.getById(id)
 		if (!existingStoreDay) {
-			return res
-				.status(404)
-				.json({ success: false, error: 'Registro não encontrado' })
+			return res.status(404).json({ success: false, error: 'Registro não encontrado' })
 		}
 
 		try {
@@ -143,8 +155,7 @@ class StoryDayController {
 			res.status(500).json({
 				success: false,
 				message: 'Erro ao deletar registro',
-				error:
-					process.env.NODE_ENV === 'development' ? error : undefined,
+				error: process.env.NODE_ENV === 'development' ? error : undefined,
 			})
 		}
 	}

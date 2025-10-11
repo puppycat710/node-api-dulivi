@@ -4,7 +4,7 @@ import storyDayController from '../controllers/store/storyDay.controller.js'
 
 const router = express.Router()
 
-router.post('/api/store-day/create', authToken, storyDayController.create)
+router.post('/api/store-day/upsert', authToken, storyDayController.upsert)
 router.get('/api/store-day/all', storyDayController.getAll)
 router.get('/api/store-day', storyDayController.getById)
 router.put('/api/store-day/update/:id', authToken, storyDayController.update)

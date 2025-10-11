@@ -1,17 +1,19 @@
 @baseUrl = http://localhost:3000/api
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb2FvanBtb3JlaXJhMjVAZ21haWwuY29tIiwiaWF0IjoxNzU4NjMzMDY3LCJleHAiOjE3NjEyMjUwNjd9.6cuNBIVamW2GaHJ21WvVmRY8VjZJy0pJtJIuHEQkhQk
 ### Criar registro
-POST {{baseUrl}}/store-day/create
+POST {{baseUrl}}/store-day/upsert
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "weekday": 0,
-  "is_open": 0,
+  "data": {
+    "weekday": 6,
+    "is_open": 1
+  },
   "fk_store_id": 2
 }
 ### Buscar todos registros
-GET {{baseUrl}}/store-day/all?fk_store_id=1
+GET {{baseUrl}}/store-day/all?fk_store_id=2
 Content-Type: application/json
 Authorization: Bearer {{token}}
 ### Buscar por ID
@@ -20,6 +22,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 ### Atualizar registro
 PUT {{baseUrl}}/store-day/update/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
