@@ -6,12 +6,6 @@ import helmet from 'helmet'
 import routes from './routes/index.js'
 import './jobs/scheduler.js'
 
-export const corsOptions = {
-	origin: urls,
-	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	allowedHeaders: ['Content-Type', 'Authorization'],
-	credentials: true,
-}
 const urls = [
 	// Domínios permitidos
 	'https://menu-dulivi.netlify.app/', // Cardápio production
@@ -21,6 +15,14 @@ const urls = [
 	'http://localhost:3000', // API development
 	'http://localhost:5173', // Dulivi development
 ]
+
+export const corsOptions = {
+	origin: urls,
+	methods: ['GET', 'POST', 'PUT', 'DELETE'],
+	allowedHeaders: ['Content-Type', 'Authorization'],
+	credentials: true,
+}
+
 const app = express()
 
 app.use(morgan('tiny'))
