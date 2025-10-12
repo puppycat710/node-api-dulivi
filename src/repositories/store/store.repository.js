@@ -78,7 +78,7 @@ class StoreRepository {
 			}
 
 			const access_token = decrypt(encryptedToken)
-			
+
 			return access_token
 		} catch (error) {
 			console.error('Erro ao buscar token:', error)
@@ -88,10 +88,11 @@ class StoreRepository {
 	// Atualizar loja
 	async update(id, storeData) {
 		try {
+			if (!storeData || Object.keys(storeData).length === 0) return this.getById(id)
 			const lojaAtual = await this.getById(id)
-			// Se o nome for alterado, atualize o slug
+			// Atualiza slug se o nome mudou
 			if (storeData?.name && storeData.name !== lojaAtual.name) {
-				storeData.slug = createSlug(storeData.name)
+				storeData.slug = await this.generateUniqueSlug(storeData.name)
 			}
 			// Converter chaves do JSON para colunas no banco de dados
 			const fields = Object.keys(storeData)
@@ -106,7 +107,6 @@ class StoreRepository {
 			// Retornar o usuário atualizado
 			return this.getById(id)
 		} catch (error) {
-			console.error('Erro ao atualizar registro: ', error)
 			throw error
 		}
 	}
@@ -114,6 +114,22 @@ class StoreRepository {
 	async delete(id) {
 		const result = await turso.execute(`DELETE FROM stores WHERE id = ?`, [id])
 		return result.affectedRows > 0
+	}
+	// Função utilitária para gerar slug único
+	async generateUniqueSlug(name) {
+		const baseSlug = createSlug(name)
+		let slug = baseSlug
+
+		const result = await turso.execute(`SELECT slug FROM stores WHERE slug LIKE ?`, [`${baseSlug}%`])
+		const existingSlugs = result.rows.map((r) => r.slug)
+
+		if (existingSlugs.includes(baseSlug)) {
+			let counter = 2
+			while (existingSlugs.includes(`${baseSlug}-${counter}`)) counter++
+			slug = `${baseSlug}-${counter}`
+		}
+
+		return slug
 	}
 }
 
