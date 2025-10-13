@@ -10,7 +10,7 @@ class DeliveryAreaController {
 			delivery_time_min,
 			delivery_time_max,
 			fk_store_cities_id,
-			fk_store_id,
+			fk_store_id
 		} = req.body
 
 		const deliveryAreas = () => deliveryAreaRepository.getAll(fk_store_id)

@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS store_delivery_area (
+CREATE TABLE IF NOT EXISTS store_delivery_areas (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   delivery_fee NUMERIC NOT NULL,

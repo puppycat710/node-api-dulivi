@@ -1,6 +1,8 @@
 @baseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb2FvanBtb3JlaXJhMjVAZ21haWwuY29tIiwiaWF0IjoxNzU4NjMzMDY3LCJleHAiOjE3NjEyMjUwNjd9.6cuNBIVamW2GaHJ21WvVmRY8VjZJy0pJtJIuHEQkhQk
 ### Criar bairro
 POST {{baseUrl}}/deliveryarea/create
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -12,12 +14,8 @@ Content-Type: application/json
   "fk_store_id": 2
 }
 ### Buscar todos bairros
-GET {{baseUrl}}/deliveryarea/all
+GET {{baseUrl}}/deliveryarea/all?fk_store_id=2
 Content-Type: application/json
-
-{
-  "fk_store_id": 1
-}
 ### Buscar bairro por ID
 GET {{baseUrl}}/deliveryarea/id
 Content-Type: application/json

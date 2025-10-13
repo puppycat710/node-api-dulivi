@@ -8,7 +8,7 @@ class DeliveryAreaRepository {
 		const { name, delivery_fee, delivery_time_min, delivery_time_max, fk_store_cities_id, fk_store_id } = deliveryAreaData
 		try {
 			const result = await turso.execute(
-				`INSERT INTO store_delivery_area (name, delivery_fee, delivery_time_min, delivery_time_max, fk_store_cities_id, fk_store_id)
+				`INSERT INTO store_delivery_areas (name, delivery_fee, delivery_time_min, delivery_time_max, fk_store_cities_id, fk_store_id)
          VALUES (?, ?, ?, ?, ?, ?) RETURNING *`,
 				[
 					name,
@@ -30,7 +30,7 @@ class DeliveryAreaRepository {
 	async getAll(fk_store_id) {
 		try {
 			const result = await turso.execute(
-				`SELECT * FROM store_delivery_area WHERE fk_store_id = ?`,
+				`SELECT * FROM store_delivery_areas WHERE fk_store_id = ?`,
 				[fk_store_id]
 			)
 			return result.rows
@@ -43,7 +43,7 @@ class DeliveryAreaRepository {
 	async getById(id) {
 		try {
 			const result = await turso.execute(
-				`SELECT * FROM store_delivery_area WHERE id = ?`,
+				`SELECT * FROM store_delivery_areas WHERE id = ?`,
 				[id]
 			)
 			return result.rows[0]
@@ -60,7 +60,7 @@ class DeliveryAreaRepository {
 
 			// Construir a query SQL dinâmica
 			const setClause = fields.map((field) => `${field} = ?`).join(', ')
-			const query = `UPDATE store_delivery_area SET ${setClause} WHERE id = ?`
+			const query = `UPDATE store_delivery_areas SET ${setClause} WHERE id = ?`
 
 			// Adicionar o ID no final dos valores
 			values.push(id)
@@ -81,7 +81,7 @@ class DeliveryAreaRepository {
 	// Deletar bairro
 	async delete(id) {
 		const result = await turso.execute(
-			`DELETE FROM store_delivery_area WHERE id = ?`,
+			`DELETE FROM store_delivery_areas WHERE id = ?`,
 			[id]
 		)
 		return result.affectedRows > 0
