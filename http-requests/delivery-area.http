@@ -8,14 +8,15 @@ Content-Type: application/json
   "delivery_fee": 4.50,
   "delivery_time_min": 60,
   "delivery_time_max": 90,
-  "fk_store_cities_id": 1
+  "fk_store_cities_id": 1,
+  "fk_store_id": 2
 }
 ### Buscar todos bairros
 GET {{baseUrl}}/deliveryarea/all
 Content-Type: application/json
 
 {
-  "fk_store_cities_id": 1
+  "fk_store_id": 1
 }
 ### Buscar bairro por ID
 GET {{baseUrl}}/deliveryarea/id

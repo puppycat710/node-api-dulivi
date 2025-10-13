@@ -5,16 +5,18 @@ const turso = getTursoClient()
 class DeliveryAreaRepository {
 	// Criar area de entrega
 	async create(deliveryAreaData) {
+		const { name, delivery_fee, delivery_time_min, delivery_time_max, fk_store_cities_id, fk_store_id } = deliveryAreaData
 		try {
 			const result = await turso.execute(
-				`INSERT INTO store_delivery_area (name, delivery_fee, delivery_time_min, delivery_time_max, fk_store_cities_id)
-         VALUES (?, ?, ?, ?, ?) RETURNING *`,
+				`INSERT INTO store_delivery_area (name, delivery_fee, delivery_time_min, delivery_time_max, fk_store_cities_id, fk_store_id)
+         VALUES (?, ?, ?, ?, ?, ?) RETURNING *`,
 				[
-					deliveryAreaData.name,
-					deliveryAreaData.delivery_fee,
-					deliveryAreaData.delivery_time_min,
-					deliveryAreaData.delivery_time_max,
-					deliveryAreaData.fk_store_cities_id
+					name,
+					delivery_fee,
+					delivery_time_min,
+					delivery_time_max,
+					fk_store_cities_id,
+					fk_store_id
 				]
 			)
 
@@ -25,11 +27,11 @@ class DeliveryAreaRepository {
 		}
 	}
 	// Encontrar areas de entrega
-	async getAll(fk_store_cities_id) {
+	async getAll(fk_store_id) {
 		try {
 			const result = await turso.execute(
-				`SELECT * FROM store_delivery_area WHERE fk_store_cities_id = ?`,
-				[fk_store_cities_id]
+				`SELECT * FROM store_delivery_area WHERE fk_store_id = ?`,
+				[fk_store_id]
 			)
 			return result.rows
 		} catch (error) {

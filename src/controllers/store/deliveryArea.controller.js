@@ -10,9 +10,10 @@ class DeliveryAreaController {
 			delivery_time_min,
 			delivery_time_max,
 			fk_store_cities_id,
+			fk_store_id,
 		} = req.body
 
-		const deliveryAreas = () => deliveryAreaRepository.getAll(fk_store_cities_id)
+		const deliveryAreas = () => deliveryAreaRepository.getAll(fk_store_id)
 
 		const exists = await checkIfExists(deliveryAreas, 'name', name)
 
@@ -29,6 +30,7 @@ class DeliveryAreaController {
 				delivery_time_min,
 				delivery_time_max,
 				fk_store_cities_id,
+				fk_store_id
 			})
 			//Retorno da API
 			res.status(200).json({
@@ -44,10 +46,10 @@ class DeliveryAreaController {
 	}
 	// Buscar todas areas de entrega
 	async getAll(req, res) {
-		const fk_store_cities_id = Number(req.query.fk_store_cities_id)
+		const fk_store_id = Number(req.query.fk_store_id)
 
 		try {
-			const deliveryAreas = await deliveryAreaRepository.getAll(fk_store_cities_id)
+			const deliveryAreas = await deliveryAreaRepository.getAll(fk_store_id)
 
 			if (!deliveryAreas || deliveryAreas.length === 0) {
 				return res.status(404).json({
