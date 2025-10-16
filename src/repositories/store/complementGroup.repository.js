@@ -5,23 +5,25 @@ const turso = getTursoClient()
 class CategoryRepository {
 	// Criar grupo de complementos
 	async create(complementGroupData) {
+		const { title, option_limit, multiple_selection, allow_quantity_per_item, required, fk_store_id } = complementGroupData
+
 		try {
 			const result = await turso.execute(
 				`INSERT INTO complement_groups (title, option_limit, multiple_selection, allow_quantity_per_item, required, fk_store_id) 
          VALUES (?, ?, ?, ?, ?, ?) RETURNING *`,
 				[
-					complementGroupData.title,
-					complementGroupData.option_limit ?? null,
-					complementGroupData.multiple_selection ?? null,
-					complementGroupData.required ?? null,
-					complementGroupData.allow_quantity_per_item ?? null,
-					complementGroupData.fk_store_id,
+					title,
+					option_limit ?? 20,
+					multiple_selection ?? 1,
+					allow_quantity_per_item ?? 0,
+					required ?? 0,
+					fk_store_id,
 				]
 			)
 			//Retorno
 			return result.rows[0]
 		} catch (error) {
-			console.error('Não foi possível cadastrar o categoria', error)
+			console.error('Não foi possível cadastrar o registro', error)
 			throw error
 		}
 	}
@@ -35,7 +37,7 @@ class CategoryRepository {
 			//Retorno
 			return result.rows
 		} catch (error) {
-			console.error('Categoria não encontrado', error)
+			console.error('Registro não encontrado', error)
 			throw error
 		}
 	}
@@ -47,7 +49,7 @@ class CategoryRepository {
 			])
 			return result.rows[0]
 		} catch (error) {
-			console.error('Categoria não encontrado', error)
+			console.error('Registro não encontrado', error)
 			throw error
 		}
 	}
@@ -57,11 +59,9 @@ class CategoryRepository {
 			// Converter chaves do JSON para colunas no banco de dados
 			const fields = Object.keys(complementGroupData)
 			const values = Object.values(complementGroupData)
-
 			// Construir a query SQL dinâmica
 			const setClause = fields.map((field) => `${field} = ?`).join(', ')
 			const query = `UPDATE complement_groups SET ${setClause} WHERE id = ?`
-
 			// Adicionar o ID no final dos valores
 			values.push(id)
 
@@ -72,7 +72,7 @@ class CategoryRepository {
 
 			return this.getById(id) // Retorna o registro atualizado
 		} catch (error) {
-			console.error('Erro ao atualizar categoria:', error)
+			console.error('Erro ao atualizar registro:', error)
 			throw error
 		}
 	}

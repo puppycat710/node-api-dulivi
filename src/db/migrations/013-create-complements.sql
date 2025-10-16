@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS complements (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
     description TEXT,
-    price NUMERIC NOT NULL,
+    price REAL NOT NULL,
     max_quantity INTEGER DEFAULT 20,
     image TEXT,
     fk_complement_group_id INTEGER NOT NULL,

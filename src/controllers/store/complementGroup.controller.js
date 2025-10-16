@@ -33,11 +33,7 @@ class ComplementGroupController {
 				fk_store_id,
 			})
 			//Retorno da API
-			res.status(200).json({
-				success: true,
-				message: 'Registro criada com sucesso',
-				data: new_complement_group,
-			})
+			res.status(200).json(new_complement_group)
 			//Tratamento de erros
 		} catch (error) {
 			console.error('Erro ao criar registro: ', error)
@@ -46,7 +42,7 @@ class ComplementGroupController {
 	}
 	// Buscar todos grupo de complementos
 	async getAll(req, res) {
-		const { fk_store_id } = req.body
+		const fk_store_id = Number(req.query.fk_store_id)
 
 		try {
 			const complement_groups = await complementGroupRepository.getAll(fk_store_id)
@@ -58,11 +54,7 @@ class ComplementGroupController {
 				})
 			}
 
-			res.status(200).json({
-				success: true,
-				message: 'Registros encontrados com sucesso',
-				data: complement_groups,
-			})
+			res.status(200).json(complement_groups)
 		} catch (error) {
 			console.error('Erro ao buscar registros:', error)
 			res.status(500).json({
@@ -74,7 +66,7 @@ class ComplementGroupController {
 	}
 	//Buscar grupo de complementos por ID
 	async getById(req, res) {
-		const { id } = req.body
+		const id = Number(req.query.id)
 
 		try {
 			const complement_group = await complementGroupRepository.getById(id)
@@ -86,11 +78,7 @@ class ComplementGroupController {
 				})
 			}
 			//Retorno da API
-			res.status(200).json({
-				success: true,
-				message: 'Registro encontrado com sucesso',
-				data: complement_group,
-			})
+			res.status(200).json(complement_group)
 			//Tratamento de erros
 		} catch (error) {
 			console.error('Erro ao buscar registro:', error)
@@ -103,7 +91,8 @@ class ComplementGroupController {
 	}
 	//Atualizar grupo de complementos
 	async update(req, res) {
-		const { id, data } = req.body
+		const id = Number(req.params.id)
+		const { data } = req.body
 
 		const existingComplementGroup = await complementGroupRepository.getById(id)
 
@@ -114,11 +103,7 @@ class ComplementGroupController {
 		try {
 			const updateComplementGroup = await complementGroupRepository.update(id, data)
 
-			res.status(200).json({
-				success: true,
-				message: 'Registro atualizado com sucesso',
-				data: updateComplementGroup,
-			})
+			res.status(200).json(updateComplementGroup)
 			//Tratamento de erros
 		} catch (error) {
 			console.error('Erro ao atualizar registro:', error)
@@ -131,7 +116,7 @@ class ComplementGroupController {
 	}
 	// Deletar grupo de complementos
 	async delete(req, res) {
-		const { id } = req.body
+		const id = Number(req.params.id)
 
 		const existingComplementGroup = await complementGroupRepository.getById(id)
 
@@ -142,10 +127,7 @@ class ComplementGroupController {
 		try {
 			await complementGroupRepository.delete(id)
 			//Retorno da API
-			res.status(200).json({
-				success: true,
-				message: 'Registro deletado com sucesso',
-			})
+			return res.status(204).send()
 			//Tratamento de erros
 		} catch (error) {
 			console.error('Erro ao deletar registro: ', error)

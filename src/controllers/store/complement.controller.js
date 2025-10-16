@@ -6,7 +6,7 @@ class ComplementController {
 	async create(req, res) {
 		const { title, description, price, max_quantity, image, fk_complement_group_id, fk_store_id } = req.body
 
-		const complements = () => complementRepository.getAll(fk_complement_group_id)
+		const complements = () => complementRepository.getAll(fk_store_id)
 
 		const exists = await checkIfExists(complements, 'title', title)
 
@@ -27,11 +27,7 @@ class ComplementController {
 				fk_store_id
 			})
 			//Retorno da API
-			res.status(200).json({
-				success: true,
-				message: 'Registro criada com sucesso',
-				data: newComplement,
-			})
+			res.status(200).json(newComplement)
 			//Tratamento de erros
 		} catch (error) {
 			console.error('Erro ao criar registro: ', error)
@@ -40,7 +36,7 @@ class ComplementController {
 	}
 	// Buscar todos complemento
 	async getAll(req, res) {
-		const { fk_store_id } = req.body
+		const fk_store_id = Number(req.query.fk_store_id)
 
 		try {
 			const complements = await complementRepository.getAll(fk_store_id)
@@ -52,11 +48,7 @@ class ComplementController {
 				})
 			}
 
-			res.status(200).json({
-				success: true,
-				message: 'Registros encontrados com sucesso',
-				data: complements,
-			})
+			res.status(200).json(complements)
 		} catch (error) {
 			console.error('Erro ao buscar registros:', error)
 			res.status(500).json({
@@ -68,7 +60,7 @@ class ComplementController {
 	}
 	//Buscar complemento por ID
 	async getById(req, res) {
-		const { id } = req.body
+		const id = Number(req.query.id)
 
 		try {
 			const complement = await complementRepository.getById(id)
@@ -79,13 +71,8 @@ class ComplementController {
 					error: 'Nenhuma registro encontrado para esta loja',
 				})
 			}
-
 			//Retorno da API
-			res.status(200).json({
-				success: true,
-				message: 'Registro encontrado com sucesso',
-				data: complement,
-			})
+			res.status(200).json(complement)
 			//Tratamento de erros
 		} catch (error) {
 			console.error('Erro ao buscar registro:', error)
@@ -98,7 +85,8 @@ class ComplementController {
 	}
 	//Atualizar complemento
 	async update(req, res) {
-		const { id, data } = req.body
+		const id = Number(req.params.id)
+		const { data } = req.body
 
 		const existingComplement = await complementRepository.getById(id)
 
@@ -109,11 +97,7 @@ class ComplementController {
 		try {
 			const updateComplement = await complementRepository.update(id, data)
 
-			res.status(200).json({
-				success: true,
-				message: 'Registro atualizado com sucesso',
-				data: updateComplement,
-			})
+			res.status(200).json(updateComplement)
 			//Tratamento de erros
 		} catch (error) {
 			console.error('Erro ao atualizar registro:', error)
@@ -126,7 +110,7 @@ class ComplementController {
 	}
 	// Deletar complemento
 	async delete(req, res) {
-		const { id } = req.body
+		const id = Number(req.params.id)
 
 		const existingComplement = await complementRepository.getById(id)
 
@@ -137,10 +121,7 @@ class ComplementController {
 		try {
 			await complementRepository.delete(id)
 			//Retorno da API
-			res.status(200).json({
-				success: true,
-				message: 'Registro deletado com sucesso',
-			})
+			return res.status(204).send()
 			//Tratamento de erros
 		} catch (error) {
 			console.error('Erro ao deletar registro: ', error)

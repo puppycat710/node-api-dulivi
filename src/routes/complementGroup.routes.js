@@ -6,8 +6,8 @@ const router = express.Router()
 
 router.post('/api/complement-group/create', authToken, complementGroupController.create)
 router.get('/api/complement-group/all', complementGroupController.getAll)
-router.get('/api/complement-group/id', complementGroupController.getById)
-router.put('/api/complement-group/update', authToken, complementGroupController.update)
-router.delete('/api/complement-types/delete', authToken, complementGroupController.delete)
+router.get('/api/complement-group/', complementGroupController.getById)
+router.put('/api/complement-group/update/:id', authToken, complementGroupController.update)
+router.delete('/api/complement-group/delete/:id', authToken, complementGroupController.delete)
 
 export default router

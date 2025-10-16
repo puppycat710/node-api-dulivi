@@ -15,7 +15,7 @@ class ComplementRepository {
 					title,
 					description,
 				  price,
-					max_quantity,
+					max_quantity ?? 20,
 					image,
 					fk_complement_group_id,
 					fk_store_id
@@ -27,11 +27,11 @@ class ComplementRepository {
 		}
 	}
 	// Encontrar todos produtos
-	async getAll(fk_complement_group_id) {
+	async getAll(fk_store_id) {
 		try {
 			const result = await turso.execute(
-				`SELECT * FROM complements WHERE fk_complement_group_id = ?`,
-				[fk_complement_group_id]
+				`SELECT * FROM complements WHERE fk_store_id = ?`,
+				[fk_store_id]
 			)
 			return result.rows.length ? result.rows : null
 		} catch (error) {

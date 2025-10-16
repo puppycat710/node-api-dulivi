@@ -1,45 +1,35 @@
 @baseUrl = http://localhost:3000/api
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwid2hhdHNhcHAiOiIxMzk5MTQwMjUxMSIsImlhdCI6MTc0ODcyMDQ2NiwiZXhwIjoxNzQ5MzI1MjY2fQ.qLMCkP3y2iffeMdpvHO0MCJo4rKdVLwdUyGqX4JWfX0
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb2FvanBtb3JlaXJhMjVAZ21haWwuY29tIiwiaWF0IjoxNzYwNjM5MjY5LCJleHAiOjE3NjMyMzEyNjl9.jfZFXbVPNktTA-Xjoz4gw47I21WtMQvTsd3_UHt27S8
 ### Criar categoria
 POST {{baseUrl}}/complement-group/create
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "title": "Complemento 1",
-  "option_limit": null,
-  "multiple_selection": "true",
-  "allow_quantity_per_item": "false",
-  "required": "false",
-  "fk_store_id": 1
+  "title": "Complementos 2",
+  "fk_store_id": 2
 }
 ### Buscar todas categoria
-GET {{baseUrl}}/complement-group/all
+GET {{baseUrl}}/complement-group/all/?fk_store_id=2
 Content-Type: application/json
-
-{
-  "fk_store_id": 1
-}
 ### Buscar categoria por ID
-GET {{baseUrl}}/complement-group/id
+GET {{baseUrl}}/complement-group/?id=1
 Content-Type: application/json
-
-{
-  "id": 1
-}
 ### Atualizar um categoria
-PUT {{baseUrl}}/complement-group/update
+PUT {{baseUrl}}/complement-group/update/1
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "id": 1,
   "data": {
-    "title": "Complementos"
+    "title": "Complementos",
+    "option_limit": 10,
+    "multiple_selection": 1,
+    "allow_quantity_per_item": 0,
+    "required": 0
   }
 }
 ### Deletar categoria
-DELETE  {{baseUrl}}/complement-group/delete
+DELETE  {{baseUrl}}/complement-group/delete/2
 Content-Type: application/json
-
-{
-  "id": 1
-}
+Authorization: Bearer {{token}}
