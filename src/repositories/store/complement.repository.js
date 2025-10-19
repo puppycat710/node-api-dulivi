@@ -13,9 +13,9 @@ class ComplementRepository {
          VALUES (?, ?, ?, ?, ?, ?) RETURNING *`,
 				[
 					title,
-					description,
-				  price,
-					image,
+					description ?? null,
+				  price ?? null,
+					image ?? null,
 					fk_complement_group_id,
 					fk_store_id
 				]
