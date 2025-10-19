@@ -10,10 +10,10 @@ Authorization: Bearer {{token}}
   "fk_store_id": 2
 }
 ### Buscar todas categoria
-GET {{baseUrl}}/complement-group/all/?fk_store_id=2
+GET {{baseUrl}}/complement-group/all?fk_store_id=2
 Content-Type: application/json
 ### Buscar categoria por ID
-GET {{baseUrl}}/complement-group/?id=1
+GET {{baseUrl}}/complement-group?id=1
 Content-Type: application/json
 ### Atualizar um categoria
 PUT {{baseUrl}}/complement-group/update/1
