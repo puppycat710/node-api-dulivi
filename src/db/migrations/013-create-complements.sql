@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS complements (
     title TEXT NOT NULL,
     description TEXT,
     price REAL,
-    max_quantity INTEGER DEFAULT 20,
     image TEXT,
     fk_complement_group_id INTEGER NOT NULL,
     fk_store_id INTEGER NOT NULL,

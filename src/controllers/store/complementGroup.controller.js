@@ -8,7 +8,6 @@ class ComplementGroupController {
 			title,
 			option_limit = null,
 			multiple_selection = null,
-			allow_quantity_per_item = null,
 			required = null,
 			fk_store_id,
 		} = req.body
@@ -28,7 +27,6 @@ class ComplementGroupController {
 				title,
 				option_limit,
 				multiple_selection,
-				allow_quantity_per_item,
 				required,
 				fk_store_id,
 			})

@@ -9,7 +9,6 @@ Authorization: Bearer {{token}}
   "title": "Bacon Triturado",
   "description": "farofinha de bacon",
   "price": 2.00,
-  "max_quantity": null,
   "image": "image",
   "fk_complement_group_id": 1,
   "fk_store_id": 2

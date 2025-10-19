@@ -25,7 +25,6 @@ Authorization: Bearer {{token}}
     "title": "Complementos",
     "option_limit": 10,
     "multiple_selection": 1,
-    "allow_quantity_per_item": 0,
     "required": 0
   }
 }
