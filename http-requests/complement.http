@@ -7,7 +7,6 @@ Authorization: Bearer {{token}}
 
 {
   "title": "Coca Cola 600ml",
-  "fk_complement_group_id": 1,
   "fk_store_id": 2
 }
 ### Buscar todas categoria

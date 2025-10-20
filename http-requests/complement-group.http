@@ -6,7 +6,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "title": "Bebidas",
+  "title": "Adicionais",
   "fk_store_id": 2
 }
 ### Buscar todas categoria

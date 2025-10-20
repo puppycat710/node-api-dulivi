@@ -9,6 +9,7 @@ import categoryRoutes from './category.routes.js'
 import productRoutes from './product.routes.js'
 import complementRoutes from './complement.routes.js'
 import complementGroupRoutes from './complementGroup.routes.js'
+import complementGroupComplementsRoutes from './complementGroupComplements.routes.js'
 // User
 import userRoutes from './user.routes.js'
 import sessionRoutes from './auth.routes.js'
@@ -55,6 +56,7 @@ router.use(categoryRoutes)
 router.use(productRoutes)
 router.use(complementRoutes)
 router.use(complementGroupRoutes)
+router.use(complementGroupComplementsRoutes)
 // User
 router.use(userRoutes)
 router.use(sessionRoutes)
