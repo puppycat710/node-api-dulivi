@@ -14,10 +14,10 @@ class complementGroupComplementsController {
 
 			// cria novos vínculos com os grupos enviados
 			const inserted = []
-			for (const group of groups) {
+			for (const fk_complement_group_id of groups) {
 				const newContactGroup = await complementGroupComplements.upsert({
 					fk_complement_id,
-					fk_complement_group_id: group.fk_complement_group_id,
+					fk_complement_group_id,
 					fk_store_id,
 				})
 				inserted.push(newContactGroup)
