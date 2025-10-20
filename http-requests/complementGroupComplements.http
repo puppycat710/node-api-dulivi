@@ -7,7 +7,7 @@ Authorization: Bearer {{token}}
 
 {
   "fk_complement_id": 1,
-  "groups": [{ "fk_complement_group_id": 2 }],
+  "groups": [2],
   "fk_store_id": 2
 }
 ### Buscar todos registros
