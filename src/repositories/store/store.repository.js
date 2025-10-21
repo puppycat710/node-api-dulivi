@@ -6,7 +6,18 @@ const turso = getTursoClient()
 
 class StoreRepository {
 	async create(storeData) {
-		const slug = createSlug(storeData.name)
+		const {
+			name,
+			email,
+			password,
+			image,
+			minimum_order,
+			default_delivery_fee,
+			delivery_time_min,
+			delivery_time_max,
+			store_location,
+		} = storeData
+		const slug = createSlug(name)
 
 		try {
 			const result = await turso.execute(
@@ -14,16 +25,16 @@ class StoreRepository {
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', DATETIME('now', '+14 days')) 
 				RETURNING *`,
 				[
-					storeData.name,
-					storeData.email,
-					storeData.password,
-					storeData.image || 'default.png',
+					name,
+					email,
+					password,
+					image || '/assets/image.png',
 					slug,
-					storeData.minimum_order || 15,
-					storeData.default_delivery_fee || 5,
-					storeData.delivery_time_min || 90,
-					storeData.delivery_time_max || 120,
-					storeData.store_location || 'São Paulo, SP',
+					minimum_order || 15,
+					default_delivery_fee || 5,
+					delivery_time_min || 90,
+					delivery_time_max || 120,
+					store_location || 'São Paulo, SP',
 				]
 			)
 			return result.rows[0]

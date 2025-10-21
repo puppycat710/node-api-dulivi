@@ -5,11 +5,12 @@ const turso = getTursoClient()
 class CategoryRepository {
 	// Criar categoria
 	async create(categorytData) {
+		const { title, image, fk_store_id } = categorytData
 		try {
 			const result = await turso.execute(
 				`INSERT INTO store_categories (title, image, fk_store_id) 
          VALUES (?, ?, ?) RETURNING *`,
-				[categorytData.title, categorytData.image, categorytData.fk_store_id]
+				[title, image ?? '/assets/image.png', fk_store_id]
 			)
 			//Retorno
 			return result.rows[0]

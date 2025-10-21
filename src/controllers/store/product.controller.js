@@ -10,7 +10,7 @@ class ProductController {
 			price,
 			servings = null,
 			weight_grams = null,
-			image = 'default.png',
+			image = '/assets/image.png',
 			fk_store_categories_id,
 			fk_store_id,
 		} = req.body
@@ -23,14 +23,12 @@ class ProductController {
 			return res.status(409).json({ success: false, error: 'Produto com este título já existe.' })
 		}
 
-		const finalImage = image || 'default.png'
-
 		try {
 			const newProduct = await productRepository.create({
 				title,
 				description,
 				price,
-				image: finalImage,
+				image,
 				servings,
 				weight_grams,
 				fk_store_categories_id,
