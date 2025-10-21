@@ -6,7 +6,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "title": "Adicionais",
+  "title": "Adicionais2",
   "fk_store_id": 2
 }
 ### Buscar todas categoria
@@ -29,6 +29,6 @@ Authorization: Bearer {{token}}
   }
 }
 ### Deletar categoria
-DELETE  {{baseUrl}}/complement-group/delete/2
+DELETE  {{baseUrl}}/complement-group/delete/4
 Content-Type: application/json
 Authorization: Bearer {{token}}

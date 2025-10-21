@@ -4,7 +4,7 @@ import checkIfExists from '../../utils/checkIfExists.js'
 class ComplementController {
 	// Cadastrar novo complemento
 	async create(req, res) {
-		const { title, description = null, price = null, image = null, fk_store_id } = req.body
+		const { title, description = null, price, combo_surcharge = null, image = null, fk_store_id } = req.body
 
 		const complements = () => complementRepository.getAll(fk_store_id)
 
@@ -21,6 +21,7 @@ class ComplementController {
 				title,
 				description,
 				price,
+				combo_surcharge,
 				image,
 				fk_store_id
 			})

@@ -5,16 +5,17 @@ const turso = getTursoClient()
 class CategoryRepository {
 	// Criar grupo de complementos
 	async create(complementGroupData) {
-		const { title, option_limit, multiple_selection, required, fk_store_id } = complementGroupData
+		const { title, option_limit, multiple_selection, is_combo_group, required, fk_store_id } = complementGroupData
 
 		try {
 			const result = await turso.execute(
-				`INSERT INTO complement_groups (title, option_limit, multiple_selection, required, fk_store_id) 
-         VALUES (?, ?, ?, ?, ?) RETURNING *`,
+				`INSERT INTO complement_groups (title, option_limit, multiple_selection, is_combo_group, required, fk_store_id) 
+         VALUES (?, ?, ?, ?, ?, ?) RETURNING *`,
 				[
 					title,
 					option_limit ?? 20,
 					multiple_selection ?? 0,
+					is_combo_group ?? 0,
 					required ?? 0,
 					fk_store_id,
 				]

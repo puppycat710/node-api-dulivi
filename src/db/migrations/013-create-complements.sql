@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS complements (
     title TEXT NOT NULL,
     description TEXT,
     price REAL,
+    combo_surcharge REAL,
     image TEXT,
     fk_store_id INTEGER NOT NULL,
     FOREIGN KEY (fk_store_id) REFERENCES stores (id) ON DELETE CASCADE

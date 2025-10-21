@@ -5,16 +5,17 @@ const turso = getTursoClient()
 class ComplementRepository {
 	// Criar produto
 	async create(complementData) {
-		const { title, description, price, image, fk_store_id } = complementData
+		const { title, description, price, combo_surcharge, image, fk_store_id } = complementData
 
 		try {
 			const result = await turso.execute(
-				`INSERT INTO complements (title, description, price, image, fk_store_id)
-         VALUES (?, ?, ?, ?, ?) RETURNING *`,
+				`INSERT INTO complements (title, description, price, combo_surcharge, image, fk_store_id)
+         VALUES (?, ?, ?, ?, ?, ?) RETURNING *`,
 				[
 					title,
 					description ?? null,
-				  price ?? null,
+				  price,
+					combo_surcharge ?? 0,
 					image ?? null,
 					fk_store_id
 				]
