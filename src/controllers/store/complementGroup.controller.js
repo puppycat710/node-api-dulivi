@@ -6,6 +6,7 @@ class ComplementGroupController {
 	async create(req, res) {
 		const {
 			title,
+			option_minimum = null,
 			option_limit = null,
 			multiple_selection = null,
 			is_combo_group = null,
@@ -26,6 +27,7 @@ class ComplementGroupController {
 		try {
 			const new_complement_group = await complementGroupRepository.create({
 				title,
+				option_minimum,
 				option_limit,
 				multiple_selection,
 				is_combo_group,

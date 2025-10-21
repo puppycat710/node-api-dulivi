@@ -29,6 +29,6 @@ Authorization: Bearer {{token}}
   }
 }
 ### Deletar categoria
-DELETE  {{baseUrl}}/complement-group/delete/4
+DELETE  {{baseUrl}}/complement-group/delete/6
 Content-Type: application/json
 Authorization: Bearer {{token}}
