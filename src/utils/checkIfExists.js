@@ -1,6 +1,5 @@
-// utils/checkIfExists.js
-export default async function checkIfExists(getAllFn, field, value) {
-	const items = await getAllFn()
+export default async function checkIfExists(itemsOrFn, field, value) {
+	const items = typeof itemsOrFn === 'function' ? await itemsOrFn() : itemsOrFn
 
 	if (!Array.isArray(items)) return false
 

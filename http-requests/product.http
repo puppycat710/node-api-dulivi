@@ -1,7 +1,9 @@
 @baseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb2FvanBtb3JlaXJhMjVAZ21haWwuY29tIiwiaWF0IjoxNzYwNjM5MjY5LCJleHAiOjE3NjMyMzEyNjl9.jfZFXbVPNktTA-Xjoz4gw47I21WtMQvTsd3_UHt27S8
 ### Criar produto
 POST {{baseUrl}}/product/create
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "title": "Nabih Esfiha Carne",
@@ -11,7 +13,7 @@ Content-Type: application/json
   "servings": 1,
   "weight_grams": 85,
   "fk_store_categories_id": 1,
-  "fk_store_id": 1
+  "fk_store_id": 3
 }
 ### Buscar todos produtos
 GET {{baseUrl}}/product/all
@@ -28,19 +30,16 @@ Content-Type: application/json
   "id": 1
 }
 ### Atualizar um produto
-PUT {{baseUrl}}/product/update
+PUT {{baseUrl}}/product/update/38
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "id": 4,
   "data": {
-    "servings": 2
+    "title": "Nabih Esfiha Calabreza"
   }
 }
 ### Deletar produto
-DELETE  {{baseUrl}}/product/delete
+DELETE  {{baseUrl}}/product/delete/37
 Content-Type: application/json
-
-{
-  "id": 3
-}
+Authorization: Bearer {{token}}

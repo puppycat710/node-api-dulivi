@@ -14,13 +14,13 @@ class ProductController {
 			fk_store_categories_id,
 			fk_store_id,
 		} = req.body
-
+		// Verificando se existe registro com mesmo nome nessa loja
 		const products = () => productRepository.getAll(fk_store_id)
-
 		const exists = await checkIfExists(products, 'title', title)
-
 		if (exists) {
-			return res.status(409).json({ success: false, error: 'Produto com este título já existe.' })
+			return res
+				.status(409)
+				.json({ success: false, error: 'Registro com este título já existe.' })
 		}
 
 		try {
@@ -106,15 +106,47 @@ class ProductController {
 			})
 		}
 	}
+	//Buscar por slug
+	async getBySlug(req, res) {
+		const slug = req.params.slug
+
+		try {
+			const product = await productRepository.getBySlug(slug)
+
+			if (!product || product.length === 0) {
+				return res.status(404).json({
+					success: false,
+					error: 'Slug não encontrado',
+				})
+			}
+			//Retorno da API
+			res.status(200).json({
+				success: true,
+				message: 'Registro encontrado com sucesso!',
+				data: product,
+			})
+			//Tratamento de erros
+		} catch (error) {
+			console.error('Erro ao buscar registro:', error)
+			res.status(500).json({
+				success: false,
+				message: 'Erro ao buscar registro',
+				error: process.env.NODE_ENV === 'development' ? error : undefined,
+			})
+		}
+	}
 	//Atualizar produto
 	async update(req, res) {
 		const id = req.params.id
 		const { data } = req.body
-
-		const existingProduct = await productRepository.getById(id)
-
-		if (!existingProduct) {
-			return res.status(404).json({ success: false, error: 'Produto não encontrado' })
+		// Verificando se existe registro com mesmo nome nessa loja
+		const current_product = await productRepository.getById(id)
+		const products = await productRepository.getAll(current_product.fk_store_id)
+		const exists = await checkIfExists(products, 'title', data.title)
+		if (exists) {
+			return res
+				.status(409)
+				.json({ success: false, error: 'Registro com este título já existe.' })
 		}
 
 		try {

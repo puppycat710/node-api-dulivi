@@ -17,7 +17,7 @@ class StoreRepository {
 			delivery_time_max,
 			store_location,
 		} = storeData
-		const slug = createSlug(name)
+		const slug = this.generateUniqueSlug(name)
 
 		try {
 			const result = await turso.execute(
@@ -116,7 +116,7 @@ class StoreRepository {
 			// Executar a query no Turso
 			await turso.execute(query, values)
 			// Retornar o usuário atualizado
-			return this.getById(id)
+			return await this.getById(id)
 		} catch (error) {
 			throw error
 		}
