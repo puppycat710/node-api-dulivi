@@ -1,25 +1,35 @@
 @baseUrl = http://localhost:3000/api
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb2FvanBtb3JlaXJhMjVAZ21haWwuY29tIiwiaWF0IjoxNzU4NjMzMDY3LCJleHAiOjE3NjEyMjUwNjd9.6cuNBIVamW2GaHJ21WvVmRY8VjZJy0pJtJIuHEQkhQk
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb2FvanBtb3JlaXJhMjVAZ21haWwuY29tIiwiaWF0IjoxNzYyMjEyODc5LCJleHAiOjE3NjQ4MDQ4Nzl9.YKpDy-LzJRiYMyWs1Uw8wKDt29J_vr03utG63GqNc8c
 ### Criar registro
-POST {{baseUrl}}/complement-group-complements/upsert
+POST {{baseUrl}}/complement-group-products/upsert
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "fk_complement_id": 1,
-  "groups": [2],
+  "fk_product_id": 1,
+  "groups": [1, 7],
+  "fk_store_id": 2
+}
+### Criar registro
+POST {{baseUrl}}/complement-group-products/bulk-upsert
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "fk_complement_group_id": 7,
+  "products": [2, 23],
   "fk_store_id": 2
 }
 ### Buscar todos registros
-GET {{baseUrl}}/complement-group-complements/all?fk_store_id=2
+GET {{baseUrl}}/complement-group-products/all?fk_store_id=2
 Content-Type: application/json
 Authorization: Bearer {{token}}
 ### Buscar por ID
-GET {{baseUrl}}/complement-group-complements?id=1
+GET {{baseUrl}}/complement-group-products?id=1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 ### Atualizar registro
-PUT {{baseUrl}}/complement-group-complements/update/1
+PUT {{baseUrl}}/complement-group-products/update/1
 Content-Type: application/json
 
 {
@@ -28,5 +38,5 @@ Content-Type: application/json
   }
 }
 ### Deletar registro
-DELETE  {{baseUrl}}/complement-group-complements/delete/2
+DELETE  {{baseUrl}}/complement-group-products/delete/2
 Content-Type: application/json
