@@ -18,9 +18,7 @@ class ProductController {
 		const products = () => productRepository.getAll(fk_store_id)
 		const exists = await checkIfExists(products, 'title', title)
 		if (exists) {
-			return res
-				.status(409)
-				.json({ success: false, error: 'Registro com este título já existe.' })
+			return res.status(409).json({ success: false, error: 'Registro com este título já existe.' })
 		}
 
 		try {
@@ -139,14 +137,10 @@ class ProductController {
 	async update(req, res) {
 		const id = req.params.id
 		const { data } = req.body
-		// Verificando se existe registro com mesmo nome nessa loja
-		const current_product = await productRepository.getById(id)
-		const products = await productRepository.getAll(current_product.fk_store_id)
-		const exists = await checkIfExists(products, 'title', data.title)
-		if (exists) {
-			return res
-				.status(409)
-				.json({ success: false, error: 'Registro com este título já existe.' })
+		
+		const existingProduct = await productRepository.getById(id)
+		if (!existingProduct) {
+			return res.status(404).json({ success: false, error: 'Produto não encontrada' })
 		}
 
 		try {
@@ -173,7 +167,6 @@ class ProductController {
 		const id = Number(req.params.id)
 
 		const existingProduct = await productRepository.getById(id)
-
 		if (!existingProduct) {
 			return res.status(404).json({ success: false, error: 'Produto não encontrada' })
 		}
