@@ -131,6 +131,16 @@ class ComplementController {
 			})
 		}
 	}
+	async getGroups(req, res) {
+		const { store_id, product_id } = req.params;
+
+		try {
+			const data = await complementRepository.getGroupsWithComplements(store_id, product_id);
+			return res.json({ success: true, data });
+		} catch (err) {
+			return res.status(500).json({ success: false, error: err.message });
+		}
+	}
 }
 
 export default new ComplementController()

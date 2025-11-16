@@ -12,6 +12,9 @@ Authorization: Bearer {{token}}
 ### Buscar todas categoria
 GET {{baseUrl}}/complement/all?fk_store_id=2
 Content-Type: application/json
+### TODOS COMPLEMENTOS DA LOJA E PRODUTO
+GET {{baseUrl}}/store/2/product/1/complements
+Content-Type: application/json
 ### Buscar categoria por ID
 GET {{baseUrl}}/complement/?id=1
 Content-Type: application/json
