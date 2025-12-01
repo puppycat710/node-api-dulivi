@@ -17,6 +17,8 @@ class StoreController {
 				name,
 				email,
 				password: hashedPassword,
+				phone,
+				cpf,
 			})
 			//Retorno da API
 			res.status(200).json({
