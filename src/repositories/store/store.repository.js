@@ -23,9 +23,24 @@ class StoreRepository {
 
 		try {
 			const result = await turso.execute(
-				`INSERT INTO stores (name, email, password, image, phone, cpf, slug, minimum_order, default_delivery_fee, delivery_time_min, delivery_time_max, store_location, subscription_status, subscription_expires_at) 
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', DATETIME('now', '+15 days')) 
-				RETURNING *`,
+				`INSERT INTO stores (
+					name,
+					email,
+					password,
+					image,
+					phone,
+					cpf,
+					slug,
+					minimum_order,
+					default_delivery_fee,
+					delivery_time_min,
+					delivery_time_max,
+					store_location,
+					subscription_status,
+					subscription_expires_at
+				) VALUES (
+					?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', DATETIME('now', '+15 days')
+				) RETURNING *`,
 				[
 					name,
 					email,
@@ -38,7 +53,7 @@ class StoreRepository {
 					default_delivery_fee || 5,
 					delivery_time_min || 90,
 					delivery_time_max || 120,
-					store_location || 'São Paulo, SP',
+					store_location || 'São Paulo, SP', // <-- AGORA CORRESPONDE AO PLACEHOLDER
 				]
 			)
 			return result.rows[0]
