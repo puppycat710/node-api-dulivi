@@ -23,7 +23,7 @@ class StoreRepository {
 
 		try {
 			const result = await turso.execute(
-				`INSERT INTO stores (name, email, password, image, phone, cpf, slug, minimum_order, delivery_time_min, delivery_time_max, store_location, subscription_status, subscription_expires_at) 
+				`INSERT INTO stores (name, email, password, image, phone, cpf, slug, minimum_order, default_delivery_fee, delivery_time_min, delivery_time_max, store_location, subscription_status, subscription_expires_at) 
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', DATETIME('now', '+15 days')) 
 				RETURNING *`,
 				[
