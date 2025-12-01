@@ -12,7 +12,7 @@ const urls = [
 	'https://painel-dulivi.netlify.app', // Painel production
 	'https://cardapio-digital-api-nzm1.onrender.com', // API production
 	'https://node-api-dulivi-whatsapp-bot-production.up.railway.app', // API production
-	'https://lp-dulivi.netlify.app/', // LP
+	'https://lp-dulivi.netlify.app', // LP
 	'http://localhost:8080', // LP development
 	'http://localhost:3000', // API development
 	'http://localhost:5173', // Dulivi development
