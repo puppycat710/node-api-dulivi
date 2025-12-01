@@ -8,7 +8,7 @@ const SECRET = process.env.JWT_SECRET
 class StoreController {
 	// Cadastrar nova loja
 	async create(req, res) {
-		const { name, email, password } = req.body
+		const { name, email, password, phone = null, cpf = null } = req.body
 
 		const hashedPassword = await bcrypt.hash(password, 10)
 

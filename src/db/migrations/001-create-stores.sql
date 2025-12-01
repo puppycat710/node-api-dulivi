@@ -4,6 +4,8 @@ CREATE TABLE IF NOT EXISTS stores (
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     image TEXT,
+    phone TEXT,
+    cpf TEXT,
     slug TEXT,
     minimum_order NUMERIC,
     default_delivery_fee INTEGER,

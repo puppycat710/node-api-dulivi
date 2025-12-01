@@ -11,6 +11,8 @@ class StoreRepository {
 			email,
 			password,
 			image,
+			phone,
+			cpf,
 			minimum_order,
 			default_delivery_fee,
 			delivery_time_min,
@@ -21,14 +23,16 @@ class StoreRepository {
 
 		try {
 			const result = await turso.execute(
-				`INSERT INTO stores (name, email, password, image, slug, minimum_order, delivery_time_min, delivery_time_max, store_location, subscription_status, subscription_expires_at) 
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', DATETIME('now', '+14 days')) 
+				`INSERT INTO stores (name, email, password, image, phone, cpf, slug, minimum_order, delivery_time_min, delivery_time_max, store_location, subscription_status, subscription_expires_at) 
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', DATETIME('now', '+15 days')) 
 				RETURNING *`,
 				[
 					name,
 					email,
 					password,
 					image || '/assets/image.png',
+					phone || null,
+					cpf || null,
 					slug,
 					minimum_order || 15,
 					default_delivery_fee || 5,
