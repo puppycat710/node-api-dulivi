@@ -19,7 +19,7 @@ class StoreRepository {
 			delivery_time_max,
 			store_location,
 		} = storeData
-		const slug = this.generateUniqueSlug(name)
+		const slug = await this.generateUniqueSlug(name)
 
 		try {
 			const result = await turso.execute(
