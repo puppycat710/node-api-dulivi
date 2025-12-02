@@ -35,11 +35,13 @@ class StoreRepository {
 					default_delivery_fee,
 					delivery_time_min,
 					delivery_time_max,
+					open_time,
+					close_time,
 					store_location,
 					subscription_status,
 					subscription_expires_at
 				) VALUES (
-					?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', DATETIME('now', '+15 days')
+					?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', DATETIME('now', '+15 days')
 				) RETURNING *`,
 				[
 					name,
@@ -53,7 +55,9 @@ class StoreRepository {
 					default_delivery_fee || 5,
 					delivery_time_min || 90,
 					delivery_time_max || 120,
-					store_location || 'São Paulo, SP', // <-- AGORA CORRESPONDE AO PLACEHOLDER
+					open_time || '18:00',
+					close_time || '22:00',
+					store_location || 'São Paulo, SP',
 				]
 			)
 			return result.rows[0]
