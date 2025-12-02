@@ -17,6 +17,8 @@ class StoreRepository {
 			default_delivery_fee,
 			delivery_time_min,
 			delivery_time_max,
+			open_time,
+			close_time,
 			store_location,
 		} = storeData
 		const slug = await this.generateUniqueSlug(name)
