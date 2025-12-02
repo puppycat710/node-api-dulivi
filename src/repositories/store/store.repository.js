@@ -43,7 +43,7 @@ class StoreRepository {
 					subscription_status,
 					subscription_expires_at
 				) VALUES (
-					?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', DATETIME('now', '+15 days')
+					?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', DATETIME('now', '+15 days')
 				) RETURNING *`,
 				[
 					name,
