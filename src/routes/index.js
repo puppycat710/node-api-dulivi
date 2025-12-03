@@ -92,7 +92,7 @@ router.get('/api/reverse-geocode', async (req, res) => {
 			},
 		})
 
-		res.json(response)
+		res.json(response.data)
 	} catch (error) {
 		console.error('Erro no reverse-geocode:', error)
 		res.status(500).json({ error: 'Erro ao buscar localização.' })
