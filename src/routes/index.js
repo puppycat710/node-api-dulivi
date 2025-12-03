@@ -1,4 +1,5 @@
 import express from 'express'
+import axios from 'axios'
 // Store
 import storeRoutes from './store.routes.js'
 import openingHoursRoutes from './openingHour.routes.js'
@@ -91,7 +92,7 @@ router.get('/api/reverse-geocode', async (req, res) => {
 			},
 		})
 
-		res.json(response.data)
+		res.json(response)
 	} catch (error) {
 		console.error('Erro no reverse-geocode:', error)
 		res.status(500).json({ error: 'Erro ao buscar localização.' })
