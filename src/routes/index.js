@@ -31,7 +31,7 @@ import processScheduledMessages from '../jobs/scheduler.js'
 const router = express.Router()
 
 router.post('/api/upload', multerMiddleware, uploadImage)
-// cron.job ping 
+// cron.job ping
 router.get('/api/process-scheduled-messages', async (req, res) => {
 	try {
 		// Valida um token secreto simples
@@ -71,5 +71,31 @@ router.use(contactGroupRoutes)
 router.use(messageRoutes)
 // External APIs Services
 router.use(ibgeRoutes)
+router.get('/api/reverse-geocode', async (req, res) => {
+	const { lat, lon } = req.query
+
+	if (!lat || !lon) {
+		return res.status(400).json({ error: 'Latitude e longitude são obrigatórias.' })
+	}
+
+	try {
+		const response = await axios.get('https://nominatim.openstreetmap.org/reverse', {
+			params: {
+				lat,
+				lon,
+				format: 'json',
+				addressdetails: 1,
+			},
+			headers: {
+				'User-Agent': 'SeuApp/1.0 (contato@dulivi.com.br)', // obrigatório!
+			},
+		})
+
+		res.json(response.data)
+	} catch (error) {
+		console.error('Erro no reverse-geocode:', error)
+		res.status(500).json({ error: 'Erro ao buscar localização.' })
+	}
+})
 
 export default router
