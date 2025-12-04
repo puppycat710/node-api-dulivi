@@ -80,19 +80,36 @@ router.get('/api/reverse-geocode', async (req, res) => {
 	}
 
 	try {
-		const response = await axios.get('https://nominatim.openstreetmap.org/reverse', {
+		// 1️⃣ Tentar API principal (geocode.maps.co)
+		try {
+			const response1 = await axios.get('https://geocode.maps.co/reverse', {
+				params: { lat, lon },
+				timeout: 6000,
+			})
+
+			// Se retornou algo válido, envia e encerra
+			if (response1.data) {
+				return res.json(response1.data)
+			}
+		} catch (err1) {
+			console.warn('Fallback: geocode.maps.co falhou, tentando Nominatim…')
+		}
+
+		// 2️⃣ Se a primeira falhar, tenta Nominatim
+		const response2 = await axios.get('https://nominatim.openstreetmap.org/reverse', {
 			params: {
 				lat,
 				lon,
 				format: 'json',
 				addressdetails: 1,
 			},
+			timeout: 8000,
 			headers: {
-				'User-Agent': 'SeuApp/1.0 (contato@dulivi.com.br)', // obrigatório!
+				'User-Agent': 'MeuApp/1.0 (meuemail@dominio.com)',
 			},
 		})
 
-		res.json(response.data)
+		return res.json(response2.data)
 	} catch (error) {
 		console.error('Erro no reverse-geocode:', error)
 		res.status(500).json({ error: 'Erro ao buscar localização.' })
