@@ -80,36 +80,27 @@ router.get('/api/reverse-geocode', async (req, res) => {
 	}
 
 	try {
-		// 1️⃣ Tentar API principal (geocode.maps.co)
+		// 1️⃣ Tenta geocode.xyz
 		try {
-			const response1 = await axios.get('https://geocode.maps.co/reverse', {
-				params: { lat, lon },
-				timeout: 6000,
+			const r1 = await axios.get('https://geocode.xyz', {
+				params: { loc: `${lat},${lon}`, json: 1 },
+				timeout: 7000,
 			})
 
-			// Se retornou algo válido, envia e encerra
-			if (response1.data) {
-				return res.json(response1.data)
-			}
-		} catch (err1) {
-			console.warn('Fallback: geocode.maps.co falhou, tentando Nominatim…')
+			if (r1.data) return res.json(r1.data)
+		} catch (e) {
+			console.warn('Fallback: geocode.xyz falhou')
 		}
-
-		// 2️⃣ Se a primeira falhar, tenta Nominatim
-		const response2 = await axios.get('https://nominatim.openstreetmap.org/reverse', {
+		// 2️⃣ Tenta OpenCage
+		const r2 = await axios.get('https://api.opencagedata.com/geocode/v1/json', {
 			params: {
-				lat,
-				lon,
-				format: 'json',
-				addressdetails: 1,
+				key: process.env.OPENCAGE_KEY,
+				q: `${lat},${lon}`,
 			},
-			timeout: 8000,
-			headers: {
-				'User-Agent': 'MeuApp/1.0 (meuemail@dominio.com)',
-			},
+			timeout: 7000,
 		})
 
-		return res.json(response2.data)
+		return res.json(r2.data)
 	} catch (error) {
 		console.error('Erro no reverse-geocode:', error)
 		res.status(500).json({ error: 'Erro ao buscar localização.' })
