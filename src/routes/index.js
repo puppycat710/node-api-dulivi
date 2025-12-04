@@ -1,5 +1,5 @@
 import express from 'express'
-import axios from 'axios'
+import { reverseGeocode } from '../utils/reverseGeocode.js'
 // Store
 import storeRoutes from './store.routes.js'
 import openingHoursRoutes from './openingHour.routes.js'
@@ -80,68 +80,15 @@ router.get('/api/reverse-geocode', async (req, res) => {
 	}
 
 	try {
-		let data = null
+		const result = await reverseGeocode(lat, lon)
 
-		// 1️⃣ geocode.xyz
-		try {
-			console.log('🔎 Tentando geocode.xyz...')
-			const r1 = await axios.get('https://geocode.xyz', {
-				params: { loc: `${lat},${lon}`, json: 1 },
-				timeout: 7000,
-			})
-
-			if (!r1.data.error) {
-				return res.json({
-					source: 'geocode.xyz',
-					...r1.data,
-				})
-			}
-		} catch (err) {
-			console.warn('⚠ geocode.xyz falhou')
+		if (!result) {
+			return res.status(500).json({ error: 'Nenhum serviço de geolocalização respondeu.' })
 		}
 
-		// 2️⃣ OpenCage
-		try {
-			console.log('🔎 Tentando OpenCage...')
-			const r2 = await axios.get('https://api.opencagedata.com/geocode/v1/json', {
-				params: {
-					key: process.env.OPENCAGE_KEY,
-					q: `${lat},${lon}`,
-				},
-				timeout: 7000,
-			})
-
-			return res.json({
-				source: 'opencage',
-				...r2.data,
-			})
-		} catch (err) {
-			console.warn('⚠ OpenCage falhou')
-		}
-
-		// 3️⃣ Google Geocoding (opcional)
-		try {
-			console.log('🔎 Tentando Google Geocoding...')
-			const r3 = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-				params: {
-					latlng: `${lat},${lon}`,
-					key: process.env.GOOGLE_MAPS_KEY,
-				},
-				timeout: 7000,
-			})
-
-			return res.json({
-				source: 'google',
-				...r3.data,
-			})
-		} catch (err) {
-			console.warn('⚠ Google falhou')
-		}
-
-		// Se chegou aqui → nenhum funcionou
-		return res.status(500).json({ error: 'Nenhum serviço de geolocalização respondeu.' })
-	} catch (error) {
-		console.error('Erro inesperado:', error)
+		return res.json(result)
+	} catch (err) {
+		console.error('Erro inesperado:', err)
 		return res.status(500).json({ error: 'Erro inesperado.' })
 	}
 })
