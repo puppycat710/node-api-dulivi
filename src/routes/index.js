@@ -1,5 +1,4 @@
 import express from 'express'
-import { reverseGeocode } from '../utils/reverseGeocode.js'
 // Store
 import storeRoutes from './store.routes.js'
 import openingHoursRoutes from './openingHour.routes.js'
@@ -72,25 +71,5 @@ router.use(contactGroupRoutes)
 router.use(messageRoutes)
 // External APIs Services
 router.use(ibgeRoutes)
-router.get('/api/reverse-geocode', async (req, res) => {
-	const { lat, lon } = req.query
-
-	if (!lat || !lon) {
-		return res.status(400).json({ error: 'Latitude e longitude são obrigatórias.' })
-	}
-
-	try {
-		const result = await reverseGeocode(lat, lon)
-
-		if (!result) {
-			return res.status(500).json({ error: 'Nenhum serviço de geolocalização respondeu.' })
-		}
-
-		return res.json(result)
-	} catch (err) {
-		console.error('Erro inesperado:', err)
-		return res.status(500).json({ error: 'Erro inesperado.' })
-	}
-})
 
 export default router
