@@ -72,8 +72,6 @@ router.use(contactGroupRoutes)
 router.use(messageRoutes)
 // External APIs Services
 router.use(ibgeRoutes)
-import axios from 'axios'
-
 router.get('/api/reverse-geocode', async (req, res) => {
 	const { lat, lon } = req.query
 
