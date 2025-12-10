@@ -13,7 +13,7 @@ class SessionController {
 
 		await redis.setEx(sessionId, 86400, JSON.stringify(data))
 
-		res.send({ success: true, data: { order_token: sessionId } })
+		res.send({ order_token: sessionId })
 	}
 	// Encontrar sessão por ID
 	async getById(req, res) {
@@ -30,7 +30,7 @@ class SessionController {
 		}
 
 		const result = JSON.parse(raw_data)
-		return res.json({ success: true, data: result })
+		return res.json(result)
 	}
 	// Atualizar sessão
 	async update(req, res) {
@@ -48,7 +48,7 @@ class SessionController {
 		const updatedOrder = { ...order, ...data }
 
 		await redis.setEx(id, 86400, JSON.stringify(updatedOrder))
-		return res.json({ success: true, data: updatedOrder })
+		return res.json(updatedOrder)
 	}
 	// Atualizar sessão
 	async finish(req, res) {
@@ -64,11 +64,11 @@ class SessionController {
 
 		try {
 			const order = await orderController.createFromSession(order_data)
-			return res.json({ success: true, data: order })
+			return res.json(order)
 		} catch (error) {
 			return res.status(500).json({
 				success: false,
-				error: 'Erro ao finalizar pedido'
+				error: 'Erro ao finalizar pedido',
 			})
 		}
 	}
