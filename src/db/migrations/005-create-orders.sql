@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS orders (
     payment_method TEXT NOT NULL,
     customer_name TEXT,
     customer_whatsapp TEXT,
+    observation TEXT,
     paid TEXT DEFAULT 'false',
     status TEXT DEFAULT 'recebido', -- aceito | preparando | entrega | concluido
     mercadopago_pay_id TEXT,

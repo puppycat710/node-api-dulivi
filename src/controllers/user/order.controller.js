@@ -23,6 +23,7 @@ class OrderController {
 			payment_method,
 			customer_name = null,
 			customer_whatsapp = null,
+			observation = null,
 			paid = 0,
 			status = 'confirmado',
 			mercadopago_pay_id = null,
@@ -33,7 +34,6 @@ class OrderController {
 			fk_store_id,
 		} = req.body
 		const items = req.body.items
-		const complements = req.body.items.complements
 
 		try {
 			// 1. Criar pedido
@@ -46,6 +46,7 @@ class OrderController {
 				payment_method,
 				customer_name,
 				customer_whatsapp,
+				observation,
 				paid,
 				status,
 				mercadopago_pay_id,
@@ -70,8 +71,8 @@ class OrderController {
 				})
 
 				// Se houver complementos no item, salvar também
-				if (Array.isArray(complements)) {
-					for (const complement of complements) {
+				if (Array.isArray(item.complements)) {
+					for (const complement of item.complements) {
 						await orderItemComplementsRepository.create({
 							quantity: complement.quantity || 1,
 							fk_order_item_id: newItem.id,

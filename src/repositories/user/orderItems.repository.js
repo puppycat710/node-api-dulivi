@@ -25,10 +25,7 @@ class OrderItemsRepository {
 	// Encontrar todos items do pedido
 	async getAll(fk_order_id) {
 		try {
-			const result = await turso.execute(
-				`SELECT * FROM order_items WHERE fk_order_id = ?`,
-				[fk_order_id]
-			)
+			const result = await turso.execute(`SELECT * FROM order_items WHERE fk_order_id = ?`, [fk_order_id])
 			return result.rows.length ? result.rows : null
 		} catch (error) {
 			throw error

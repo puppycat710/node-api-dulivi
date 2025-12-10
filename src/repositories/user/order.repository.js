@@ -5,28 +5,50 @@ const turso = getTursoClient()
 class OrderRepository {
 	// Criar pedido
 	async create(orderData) {
+		const {
+			total_amount,
+			delivery_fee,
+			delivery_method,
+			is_scheduled,
+			scheduled_for,
+			delivery_address,
+			payment_method,
+			customer_name,
+			customer_whatsapp,
+			observation,
+			paid,
+			status,
+			mercadopago_pay_id,
+			created_at,
+			fk_store_delivery_areas_id,
+			fk_delivery_address_id,
+			fk_user_id,
+			fk_store_id,
+		} = orderData
+
 		try {
 			const result = await turso.execute(
-				`INSERT INTO orders (total_amount, delivery_fee, delivery_method, is_scheduled, scheduled_for, delivery_address, payment_method, customer_name, customer_whatsapp, paid, status, mercadopago_pay_id, created_at, fk_store_delivery_areas_id, fk_delivery_address_id, fk_user_id, fk_store_id)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *`,
+				`INSERT INTO orders (total_amount, delivery_fee, delivery_method, is_scheduled, scheduled_for, delivery_address, payment_method, customer_name, customer_whatsapp, observation, paid, status, mercadopago_pay_id, created_at, fk_store_delivery_areas_id, fk_delivery_address_id, fk_user_id, fk_store_id)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *`,
 				[
-					orderData.total_amount,
-					orderData.delivery_fee ?? 7,
-					orderData.delivery_method,
-					orderData.is_scheduled,
-					orderData.scheduled_for ?? null,
-					orderData.delivery_address,
-					orderData.payment_method,
-					orderData.customer_name ?? null,
-					orderData.customer_whatsapp ?? null,
-					orderData.paid,
-					orderData.status,
-					orderData.mercadopago_pay_id ?? null,
-					orderData.created_at,
-					orderData.fk_store_delivery_areas_id ?? null,
-					orderData.fk_delivery_address_id ?? null,
-					orderData.fk_user_id ?? null,
-					orderData.fk_store_id,
+					total_amount,
+					delivery_fee ?? 7,
+					delivery_method,
+					is_scheduled,
+					scheduled_for ?? null,
+					delivery_address,
+					payment_method,
+					customer_name ?? null,
+					customer_whatsapp ?? null,
+					observation ?? null,
+					paid,
+					status,
+					mercadopago_pay_id ?? null,
+					created_at,
+					fk_store_delivery_areas_id ?? null,
+					fk_delivery_address_id ?? null,
+					fk_user_id ?? null,
+					fk_store_id,
 				]
 			)
 			return result.rows[0]
@@ -37,10 +59,9 @@ class OrderRepository {
 	// Encontrar pedidos
 	async getAll(fk_store_id) {
 		try {
-			const result = await turso.execute(
-				`SELECT * FROM orders WHERE fk_store_id = ? ORDER BY id DESC`,
-				[fk_store_id]
-			)
+			const result = await turso.execute(`SELECT * FROM orders WHERE fk_store_id = ? ORDER BY id DESC`, [
+				fk_store_id,
+			])
 			return result.rows.length ? result.rows : null
 		} catch (error) {
 			throw error
