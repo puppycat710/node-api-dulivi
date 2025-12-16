@@ -142,10 +142,10 @@ class CityController {
 		}
 		// Deletar a cidade
 		try {
-			await cityRepository.delete(data.id)
+			await cityRepository.delete(id)
 			res.status(200).json({
 				success: true,
-				message: 'Produto deletado com sucesso',
+				message: 'Cidade deletada com sucesso',
 			})
 		} catch (error) {
 			console.error('Erro ao deletar cidade: ', error)
