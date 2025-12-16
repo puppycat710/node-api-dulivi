@@ -33,23 +33,21 @@ class CityController {
 	}
 	// Buscar cidade
 	async getAll(req, res) {
-		let data
-		try {
-			data = fkStoreIdSchema.parse(req.query)
-		} catch (err) {
-			return res.status(400).json({ success: false, error: err.errors })
+		// validação com Zod usando safeParse
+		const result = fkStoreIdSchema.safeParse(req.query)
+		if (!result.success) {
+			return res.status(400).json({ success: false, error: result.error.errors })
 		}
-
+		const { fk_store_id } = result.data
+		// Buscar cidade
 		try {
-			const cities = await cityRepository.getAll(data.fk_store_id)
-
+			const cities = await cityRepository.getAll(fk_store_id)
 			if (!cities || cities.length === 0) {
 				return res.status(404).json({
 					success: false,
 					error: 'Nenhuma cidade encontrada para esta loja',
 				})
 			}
-
 			//Retorno da API
 			res.status(200).json({
 				success: true,
