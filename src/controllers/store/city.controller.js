@@ -1,33 +1,31 @@
 import cityRepository from '../../repositories/store/city.repository.js'
+import { cityCreateSchema, cityUpdateSchema, fkStoreIdSchema } from '../../schemas/city.schema.js'
 import checkIfExists from '../../utils/checkIfExists.js'
 
 class CityController {
 	// Cadastrar nova cidade
 	async create(req, res) {
-		const { name, fk_store_id } = req.body
-
-		const cities = () => cityRepository.getAll(fk_store_id)
-
-		const exists = await checkIfExists(cities, 'name', name)
-
-		if (exists) {
-			return res
-				.status(409)
-				.json({ success: false, error: 'Cidade com este nome já existe.' })
+		// parse + validação com Zod
+		let data
+		try {
+			data = cityCreateSchema.parse({
+				name: req.body.name,
+				fk_store_id: Number(req.query.fk_store_id),
+			})
+		} catch (err) {
+			return res.status(400).json({ success: false, error: err.errors })
 		}
+		// verifica se já existe
+		const exists = await checkIfExists(() => cityRepository.getAll(data.fk_store_id), 'name', data.name)
+		if (exists) return res.status(409).json({ success: false, error: 'Cidade com este nome já existe.' })
 
 		try {
-			const newCity = await cityRepository.create({
-				name,
-				fk_store_id,
-			})
-			//Retorno da API
+			const newCity = await cityRepository.create(data)
 			res.status(200).json({
 				success: true,
-				message: 'cidade criada com sucesso',
+				message: 'Cidade criada com sucesso',
 				data: newCity,
 			})
-			//Tratamento de erros
 		} catch (error) {
 			console.error('Erro ao criar cidade: ', error)
 			res.status(500).json({ success: false, error: 'Erro ao criar cidade' })
@@ -35,10 +33,15 @@ class CityController {
 	}
 	// Buscar cidade
 	async getAll(req, res) {
-		const fk_store_id = Number(req.query.fk_store_id)
+		let data
+		try {
+			data = fkStoreIdSchema.parse(req.query)
+		} catch (err) {
+			return res.status(400).json({ success: false, error: err.errors })
+		}
 
 		try {
-			const cities = await cityRepository.getAll(fk_store_id)
+			const cities = await cityRepository.getAll(data.fk_store_id)
 
 			if (!cities || cities.length === 0) {
 				return res.status(404).json({
@@ -63,20 +66,24 @@ class CityController {
 			})
 		}
 	}
-	//Buscar produto por ID
+	//Buscar cidade por ID
 	async getById(req, res) {
-		const id = Number(req.query.id)
-
+		//parse + validação com Zod
+		let data
 		try {
-			const city = await cityRepository.getById(id)
-
+			data = idParamSchema.parse(req.params)
+		} catch (err) {
+			return res.status(400).json({ success: false, error: err.errors })
+		}
+		// Buscar cidade por ID
+		try {
+			const city = await cityRepository.getById(data.id)
 			if (!city || city.length === 0) {
 				return res.status(404).json({
 					success: false,
 					error: 'Nenhum cidade encontrada para esta loja',
 				})
 			}
-
 			//Retorno da API
 			res.status(200).json({
 				success: true,
@@ -95,45 +102,55 @@ class CityController {
 	}
 	//Atualizar cidade
 	async update(req, res) {
-		const id = Number(req.params.id)
-		const { data } = req.body
-
-		const existingCity = await cityRepository.getById(id)
-
+		// validar id
+		let params
+		try {
+			params = idParamSchema.parse(req.params)
+		} catch (err) {
+			return res.status(400).json({ success: false, error: err.errors })
+		}
+		// validar body
+		let body
+		try {
+			body = cityUpdateSchema.parse(req.body)
+		} catch (err) {
+			return res.status(400).json({ success: false, error: err.errors })
+		}
+		// Verificar se a cidade existe
+		const existingCity = await cityRepository.getById(params.id)
 		if (!existingCity) {
 			return res.status(404).json({ success: false, error: 'Registro não encontrado' })
 		}
-
+		// Atualizar a cidade
 		try {
-			const updateCity = await cityRepository.update(id, data)
-
+			const updateCity = await cityRepository.update(params.id, body)
 			res.status(200).json({
 				success: true,
 				message: 'Registro atualizado com sucesso',
 				data: updateCity,
 			})
-			//Tratamento de erros
 		} catch (error) {
 			console.error('Erro ao atualizar registro:', error)
-			res.status(500).json({
-				success: false,
-				message: 'Erro ao atualizar registro',
-				error: process.env.NODE_ENV === 'development' ? error : undefined,
-			})
+			res.status(500).json({ success: false, message: 'Erro ao atualizar registro' })
 		}
 	}
 	// Deletar cidade
 	async delete(req, res) {
-		const id = Number(req.params.id)
-
-		const existingCity = await cityRepository.getById(id)
-
+		//parse + validação com Zod
+		let data
+		try {
+			data = idParamSchema.parse(req.params)
+		} catch (err) {
+			return res.status(400).json({ success: false, error: err.errors })
+		}
+		// Verificar se a cidade existe
+		const existingCity = await cityRepository.getById(data.id)
 		if (!existingCity) {
 			return res.status(404).json({ success: false, error: 'Cidade não encontrada' })
 		}
-
+		// Deletar a cidade
 		try {
-			await cityRepository.delete(id)
+			await cityRepository.delete(data.id)
 			res.status(200).json({
 				success: true,
 				message: 'Produto deletado com sucesso',

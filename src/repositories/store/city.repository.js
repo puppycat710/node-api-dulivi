@@ -20,10 +20,7 @@ class CityRepository {
 	// Encontrar cidades
 	async getAll(fk_store_id) {
 		try {
-			const result = await turso.execute(
-				`SELECT * FROM store_cities WHERE fk_store_id = ?`,
-				[fk_store_id]
-			)
+			const result = await turso.execute(`SELECT * FROM store_cities WHERE fk_store_id = ?`, [fk_store_id])
 			return result.rows
 		} catch (error) {
 			throw error
@@ -45,17 +42,13 @@ class CityRepository {
 			// Converter chaves do JSON para colunas no banco de dados
 			const fields = Object.keys(cityData)
 			const values = Object.values(cityData)
-
 			// Construir a query SQL dinâmica
 			const setClause = fields.map((field) => `${field} = ?`).join(', ')
 			const query = `UPDATE store_cities SET ${setClause} WHERE id = ?`
-
 			// Adicionar o ID no final dos valores
 			values.push(id)
-
 			// Executar a query no Turso
 			await turso.execute(query, values)
-
 			// Retornar o usuário atualizado
 			return this.getById(id)
 		} catch (error) {
