@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.post('/api/city/create', authToken, cityController.create)
 router.get('/api/city/all', cityController.getAll)
-router.get('/api/city', cityController.getById)
+router.get('/api/city/:id', cityController.getById)
 router.put('/api/city/update/:id', authToken, cityController.update)
 router.delete('/api/city/delete/:id', authToken, cityController.delete)
 
