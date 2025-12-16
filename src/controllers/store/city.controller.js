@@ -1,26 +1,25 @@
 import cityRepository from '../../repositories/store/city.repository.js'
-import { cityCreateSchema, cityUpdateSchema, fkStoreIdSchema } from '../../schemas/city.schema.js'
+import { cityCreateSchema, cityUpdateSchema, fkStoreIdSchema, idParamSchema } from '../../schemas/city.schema.js'
 import checkIfExists from '../../utils/checkIfExists.js'
 
 class CityController {
 	// Cadastrar nova cidade
 	async create(req, res) {
 		// parse + validação com Zod
-		let data
-		try {
-			data = cityCreateSchema.parse({
-				name: req.body.name,
-				fk_store_id: Number(req.query.fk_store_id),
-			})
-		} catch (err) {
-			return res.status(400).json({ success: false, error: err.errors })
+		const result = cityCreateSchema.safeParse({
+			name: req.body.name,
+			fk_store_id: Number(req.query.fk_store_id),
+		})
+		if (!result.success) {
+			return res.status(400).json({ success: false, error: result.error.errors })
 		}
+		const { name, fk_store_id } = result.data
 		// verifica se já existe
-		const exists = await checkIfExists(() => cityRepository.getAll(data.fk_store_id), 'name', data.name)
+		const exists = await checkIfExists(() => cityRepository.getAll(fk_store_id), 'name', name)
 		if (exists) return res.status(409).json({ success: false, error: 'Cidade com este nome já existe.' })
 
 		try {
-			const newCity = await cityRepository.create(data)
+			const newCity = await cityRepository.create({ name, fk_store_id })
 			res.status(200).json({
 				success: true,
 				message: 'Cidade criada com sucesso',
@@ -67,15 +66,14 @@ class CityController {
 	//Buscar cidade por ID
 	async getById(req, res) {
 		//parse + validação com Zod
-		let data
-		try {
-			data = idParamSchema.parse(req.params)
-		} catch (err) {
-			return res.status(400).json({ success: false, error: err.errors })
+		const result = idParamSchema.safeParse(req.params)
+		if (!result.success) {
+			return res.status(400).json({ success: false, error: result.error.errors })
 		}
+		const { id } = result.data
 		// Buscar cidade por ID
 		try {
-			const city = await cityRepository.getById(data.id)
+			const city = await cityRepository.getById(id)
 			if (!city || city.length === 0) {
 				return res.status(404).json({
 					success: false,
@@ -101,27 +99,24 @@ class CityController {
 	//Atualizar cidade
 	async update(req, res) {
 		// validar id
-		let params
-		try {
-			params = idParamSchema.parse(req.params)
-		} catch (err) {
-			return res.status(400).json({ success: false, error: err.errors })
+		const result = idParamSchema.safeParse(req.params)
+		if (!result.success) {
+			return res.status(400).json({ success: false, error: result.error.errors })
 		}
+		const { id } = result.data
 		// validar body
-		let body
-		try {
-			body = cityUpdateSchema.parse(req.body)
-		} catch (err) {
-			return res.status(400).json({ success: false, error: err.errors })
+		const body = cityUpdateSchema.safeParse(req.body)
+		if (!body.success) {
+			return res.status(400).json({ success: false, error: body.error.errors })
 		}
 		// Verificar se a cidade existe
-		const existingCity = await cityRepository.getById(params.id)
+		const existingCity = await cityRepository.getById(id)
 		if (!existingCity) {
 			return res.status(404).json({ success: false, error: 'Registro não encontrado' })
 		}
 		// Atualizar a cidade
 		try {
-			const updateCity = await cityRepository.update(params.id, body)
+			const updateCity = await cityRepository.update(id, body)
 			res.status(200).json({
 				success: true,
 				message: 'Registro atualizado com sucesso',
@@ -135,14 +130,13 @@ class CityController {
 	// Deletar cidade
 	async delete(req, res) {
 		//parse + validação com Zod
-		let data
-		try {
-			data = idParamSchema.parse(req.params)
-		} catch (err) {
-			return res.status(400).json({ success: false, error: err.errors })
+		const result = idParamSchema.safeParse(req.params)
+		if (!result.success) {
+			return res.status(400).json({ success: false, error: result.error.errors })
 		}
+		const { id } = result.data
 		// Verificar se a cidade existe
-		const existingCity = await cityRepository.getById(data.id)
+		const existingCity = await cityRepository.getById(id)
 		if (!existingCity) {
 			return res.status(404).json({ success: false, error: 'Cidade não encontrada' })
 		}
