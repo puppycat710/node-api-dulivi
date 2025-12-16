@@ -105,9 +105,9 @@ class CityController {
 		}
 		const { id } = result.data
 		// validar body
-		const body = cityUpdateSchema.safeParse(req.body)
-		if (!body.success) {
-			return res.status(400).json({ success: false, error: body.error.errors })
+		const parsedBody = cityUpdateSchema.safeParse(req.body)
+		if (!parsedBody.success) {
+			return res.status(400).json({ success: false, error: parsedBody.error.errors })
 		}
 		// Verificar se a cidade existe
 		const existingCity = await cityRepository.getById(id)
@@ -116,7 +116,7 @@ class CityController {
 		}
 		// Atualizar a cidade
 		try {
-			const updateCity = await cityRepository.update(id, body)
+			const updateCity = await cityRepository.update(id, parsedBody.data)
 			res.status(200).json({
 				success: true,
 				message: 'Registro atualizado com sucesso',
