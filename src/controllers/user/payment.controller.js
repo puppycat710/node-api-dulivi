@@ -131,12 +131,10 @@ class PaymentController {
 	async createPixPayment(req, res) {
 		const store_id = req.params.id
 		const { value, phone_number } = req.body
-
 		// Validação para o número do usuário
 		if (!phone_number || typeof phone_number !== 'string') {
 			return res.status(400).json({ error: 'Número do usuário inválido ou ausente' })
 		}
-
 		// Validação para o valor
 		if (!value || typeof value !== 'number' || value <= 0) {
 			return res.status(400).json({ error: 'Valor do pagamento inválido' })
@@ -161,7 +159,7 @@ class PaymentController {
 				return res.status(404).json({ error: 'Erro ao processar pagamento' })
 			}
 
-			await api.post('/send', { phone_number, message: 'Pedido pago com sucesso' })
+			// await api.post('/send', { phone_number, message: 'Pedido pago com sucesso' })
 
 			res.send({
 				data: {
