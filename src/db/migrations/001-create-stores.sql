@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS stores (
     close_time TEXT DEFAULT '22:00:00',
     subscription_expires_at DATETIME,
     mercadopago_access_token TEXT,
+    mercadopago_refresh_token TEXT,
+    mercadopago_token_expires_at DATETIME,
     subscription_status TEXT DEFAULT 'inactive',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );

@@ -1,7 +1,6 @@
 import storeRepository from '../../repositories/store/store.repository.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import { encrypt } from '../../lib/crypto.js'
 
 const SECRET = process.env.JWT_SECRET
 
@@ -140,11 +139,6 @@ class StoreController {
 		}
 
 		try {
-			// Se tiver access_token, criptografa antes de atualizar
-			if (data.mercadopago_access_token) {
-				data.mercadopago_access_token = encrypt(data.mercadopago_access_token)
-			}
-
 			if (data.password) {
 				data.password = await bcrypt.hash(data.password, 10)
 			}

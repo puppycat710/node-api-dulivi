@@ -23,6 +23,7 @@ import contactGroupRoutes from './contactGroup.routes.js'
 import messageRoutes from './message.routes.js'
 // External APIs Services
 import ibgeRoutes from './ibge.routes.js'
+import mercadoPagoRoutes from './mercadoPago.routes.js'
 // Upload Image
 import { multerMiddleware, uploadImage } from '../utils/uploadImage.js'
 import { JWT_SECRET } from '../config/env.js'
@@ -71,5 +72,6 @@ router.use(contactGroupRoutes)
 router.use(messageRoutes)
 // External APIs Services
 router.use(ibgeRoutes)
+router.use(mercadoPagoRoutes)
 
 export default router
