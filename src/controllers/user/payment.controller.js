@@ -47,7 +47,7 @@ class PaymentController {
 				return res.status(404).json({ message: 'Erro ao cadastrar cliente no Banco', error: updateUser })
 			}
 
-			//Retorno da API
+			//Retorno
 			res.status(200).json({ message: 'Cliente criado com sucesso', data: customer })
 			//Tratamento de erros
 		} catch (error) {
@@ -105,13 +105,10 @@ class PaymentController {
 				return res.status(404).json({ error: 'Erro ao processar pagamento' })
 			}
 			// Tenta enviar a mensagem, mas não interrompe o fluxo se falhar
-			api.post('/send', {
-				phone_number,
-				message: 'Pedido pago com sucesso',
-			}).catch((err) => {
-				console.warn('Erro ao enviar mensagem via WhatsApp:', err.message)
-				// Aqui você pode opcionalmente logar no banco ou em um sistema de logs
-			})
+			// api.post('/send', {
+			// 	phone_number,
+			// 	message: 'Pedido pago com sucesso',
+			// })
 
 			return res.send({
 				data: {

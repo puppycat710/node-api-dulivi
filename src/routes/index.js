@@ -24,6 +24,10 @@ import messageRoutes from './message.routes.js'
 // External APIs Services
 import ibgeRoutes from './ibge.routes.js'
 import mercadoPagoRoutes from './mercadoPago.routes.js'
+// Plan
+import planRoutes from './plan.routes.js'
+// Subscription
+import subscriptionRoutes from './subscription.routes.js'
 // Upload Image
 import { multerMiddleware, uploadImage } from '../utils/uploadImage.js'
 import { JWT_SECRET } from '../config/env.js'
@@ -73,5 +77,8 @@ router.use(messageRoutes)
 // External APIs Services
 router.use(ibgeRoutes)
 router.use(mercadoPagoRoutes)
+// Plan
+router.use(planRoutes)
+router.use(subscriptionRoutes)
 
 export default router

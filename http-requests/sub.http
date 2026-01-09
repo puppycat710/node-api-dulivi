@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:3000
+@token = APP_USR-4345274821592298-010419-d6af62d1b498dfeeafcda28d39ff27ff-3110331507
+### Criar categoria
+POST {{baseUrl}}/admin/plans/turbo
+Content-Type: application/json
+Authorization: Bearer {{token}}
+### Buscar todas categoria
+POST {{baseUrl}}/subscriptions/subscribe
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "planSlug": "turbo",
+  "payerEmail": "test_user_xxx@testuser.com",
+  "cardToken": "af267fb186b00c73a4a0b2872777e6bf",
+  "storeId": 2
+}
