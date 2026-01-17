@@ -10,7 +10,7 @@ router.post('/subscriptions/subscribe', async (req, res) => {
 	try {
 		const { fk_store_id, plan_slug, payer_email, card_token_id } = req.body
 		// 1️⃣ Buscar plano
-		const plan = await turso.execute(`SELECT mp_plan_id FROM plans WHERE slug = ?`, [plan_slug])
+		const plan = await turso.execute(`SELECT mp_plan_id, price FROM plans WHERE slug = ?`, [plan_slug])
 
 		if (!plan.rows.length) {
 			return res.status(400).json({ error: 'Plano inválido' })
