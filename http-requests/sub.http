@@ -10,8 +10,40 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "planSlug": "turbo",
-  "payerEmail": "test_user_xxx@testuser.com",
-  "cardToken": "af267fb186b00c73a4a0b2872777e6bf",
-  "storeId": 2
+  "plan_slug": "start",
+  "payer_email": "ak9585042@gmail.com",
+  "card_token_id": "b7efe1813437afed96438fb42327cefc",
+  "fk_store_id": 2
+}
+### Buscar assinatura
+GET {{baseUrl}}/subscriptions/2
+Content-Type: application/json
+Authorization: Bearer {{token}}
+### Suspender assinatura
+PUT {{baseUrl}}/subscriptions/2/pause
+Content-Type: application/json
+Authorization: Bearer {{token}}
+### Reactivar assinatura
+PUT {{baseUrl}}/subscriptions/2/reactivate
+Content-Type: application/json
+Authorization: Bearer {{token}}
+### Alterar cartão
+PUT {{baseUrl}}/subscriptions/2/change-card
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "card_token_id": "fdaa92065b0b894b6fec1594c402008d"
+}
+### Cancelar assinatura
+PUT {{baseUrl}}/subscriptions/2/cancel
+Content-Type: application/json
+Authorization: Bearer {{token}}
+### Mudar plano
+PUT {{baseUrl}}/subscriptions/2/change-plan
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "new_plan_slug": "start"
 }

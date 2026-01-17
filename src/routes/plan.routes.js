@@ -7,6 +7,7 @@ const router = express.Router()
 const turso = getTursoClient()
 
 router.post('/admin/plans/start', async (req, res) => {
+	const price = 0.5
 	try {
 		const response = await axios.post(
 			'https://api.mercadopago.com/preapproval_plan',
@@ -15,8 +16,12 @@ router.post('/admin/plans/start', async (req, res) => {
 				auto_recurring: {
 					frequency: 1,
 					frequency_type: 'months',
-					transaction_amount: 79.9,
+					transaction_amount: price,
 					currency_id: 'BRL',
+					free_trial: {
+						frequency: 15,
+						frequency_type: 'days',
+					},
 				},
 				back_url: 'https://painel-dulivi.netlify.app/assinatura',
 			},
@@ -33,7 +38,7 @@ router.post('/admin/plans/start', async (req, res) => {
 		await turso.execute(
 			`INSERT OR REPLACE INTO plans (slug, name, price, mp_plan_id)
        VALUES (?, ?, ?, ?)`,
-			['start', 'Start', 79.9, planId]
+			['start', 'Start', price, planId]
 		)
 
 		res.json({ plan: 'start', mp_plan_id: planId })
@@ -43,6 +48,7 @@ router.post('/admin/plans/start', async (req, res) => {
 })
 //pro
 router.post('/admin/plans/pro', async (req, res) => {
+	const price = 0.5
 	try {
 		const response = await axios.post(
 			'https://api.mercadopago.com/preapproval_plan',
@@ -51,8 +57,12 @@ router.post('/admin/plans/pro', async (req, res) => {
 				auto_recurring: {
 					frequency: 1,
 					frequency_type: 'months',
-					transaction_amount: 139.9,
+					transaction_amount: price,
 					currency_id: 'BRL',
+					free_trial: {
+						frequency: 15,
+						frequency_type: 'days',
+					},
 				},
 				back_url: 'https://painel-dulivi.netlify.app/assinatura',
 			},
@@ -69,7 +79,7 @@ router.post('/admin/plans/pro', async (req, res) => {
 		await turso.execute(
 			`INSERT OR REPLACE INTO plans (slug, name, price, mp_plan_id)
        VALUES (?, ?, ?, ?)`,
-			['pro', 'Pro', 139.9, planId]
+			['pro', 'Pro', price, planId]
 		)
 
 		res.json({ plan: 'pro', mp_plan_id: planId })
@@ -79,6 +89,7 @@ router.post('/admin/plans/pro', async (req, res) => {
 })
 // turbo
 router.post('/admin/plans/turbo', async (req, res) => {
+	const price = 0.5
 	try {
 		const response = await axios.post(
 			'https://api.mercadopago.com/preapproval_plan',
@@ -87,8 +98,12 @@ router.post('/admin/plans/turbo', async (req, res) => {
 				auto_recurring: {
 					frequency: 1,
 					frequency_type: 'months',
-					transaction_amount: 249.9,
+					transaction_amount: price,
 					currency_id: 'BRL',
+					free_trial: {
+						frequency: 15,
+						frequency_type: 'days',
+					},
 				},
 				back_url: 'https://painel-dulivi.netlify.app/assinatura',
 			},
@@ -105,7 +120,7 @@ router.post('/admin/plans/turbo', async (req, res) => {
 		await turso.execute(
 			`INSERT OR REPLACE INTO plans (slug, name, price, mp_plan_id)
        VALUES (?, ?, ?, ?)`,
-			['turbo', 'Turbo', 249.9, planId]
+			['turbo', 'Turbo', price, planId]
 		)
 
 		res.json({ plan: 'turbo', mp_plan_id: planId })
