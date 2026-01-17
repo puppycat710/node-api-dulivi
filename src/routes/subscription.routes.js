@@ -24,6 +24,12 @@ router.post('/subscriptions/subscribe', async (req, res) => {
 				card_token_id: card_token_id,
 				status: 'authorized',
 				external_reference: `store_${fk_store_id}`,
+				auto_recurring: {
+					free_trial: {
+						frequency: 15,
+						frequency_type: 'days',
+					},
+				},
 			},
 			{
 				headers: {

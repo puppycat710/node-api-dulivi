@@ -18,10 +18,6 @@ router.post('/admin/plans/start', async (req, res) => {
 					frequency_type: 'months',
 					transaction_amount: price,
 					currency_id: 'BRL',
-					free_trial: {
-						frequency: 15,
-						frequency_type: 'days',
-					},
 				},
 				back_url: 'https://painel-dulivi.netlify.app/assinatura',
 			},
@@ -59,10 +55,6 @@ router.post('/admin/plans/pro', async (req, res) => {
 					frequency_type: 'months',
 					transaction_amount: price,
 					currency_id: 'BRL',
-					free_trial: {
-						frequency: 15,
-						frequency_type: 'days',
-					},
 				},
 				back_url: 'https://painel-dulivi.netlify.app/assinatura',
 			},
@@ -100,10 +92,6 @@ router.post('/admin/plans/turbo', async (req, res) => {
 					frequency_type: 'months',
 					transaction_amount: price,
 					currency_id: 'BRL',
-					free_trial: {
-						frequency: 15,
-						frequency_type: 'days',
-					},
 				},
 				back_url: 'https://painel-dulivi.netlify.app/assinatura',
 			},
