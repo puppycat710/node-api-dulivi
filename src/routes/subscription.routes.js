@@ -15,7 +15,6 @@ router.post('/subscriptions/subscribe', async (req, res) => {
 		if (!plan.rows.length) {
 			return res.status(400).json({ error: 'Plano inválido' })
 		}
-		
 		// 2️⃣ Criar assinatura COM TOKEN DA PLATAFORMA
 		const response = await axios.post(
 			'https://api.mercadopago.com/preapproval',
@@ -26,6 +25,8 @@ router.post('/subscriptions/subscribe', async (req, res) => {
 				status: 'authorized',
 				external_reference: `store_${fk_store_id}`,
 				auto_recurring: {
+					transaction_amount: plan.rows[0].price,
+					currency_id: 'BRL',
 					free_trial: {
 						frequency: 15,
 						frequency_type: 'days',

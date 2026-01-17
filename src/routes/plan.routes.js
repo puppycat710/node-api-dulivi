@@ -7,7 +7,7 @@ const router = express.Router()
 const turso = getTursoClient()
 
 router.post('/admin/plans/start', async (req, res) => {
-	const price = 0.5
+	const price = 79.9
 	try {
 		const response = await axios.post(
 			'https://api.mercadopago.com/preapproval_plan',
@@ -44,7 +44,7 @@ router.post('/admin/plans/start', async (req, res) => {
 })
 //pro
 router.post('/admin/plans/pro', async (req, res) => {
-	const price = 0.5
+	const price = 139.9
 	try {
 		const response = await axios.post(
 			'https://api.mercadopago.com/preapproval_plan',
@@ -81,7 +81,7 @@ router.post('/admin/plans/pro', async (req, res) => {
 })
 // turbo
 router.post('/admin/plans/turbo', async (req, res) => {
-	const price = 0.5
+	const price = 249.9
 	try {
 		const response = await axios.post(
 			'https://api.mercadopago.com/preapproval_plan',
