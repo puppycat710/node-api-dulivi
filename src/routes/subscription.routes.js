@@ -15,6 +15,7 @@ router.post('/subscriptions/subscribe', async (req, res) => {
 		if (!plan.rows.length) {
 			return res.status(400).json({ error: 'Plano inválido' })
 		}
+		
 		// 2️⃣ Criar assinatura COM TOKEN DA PLATAFORMA
 		const response = await axios.post(
 			'https://api.mercadopago.com/preapproval',
